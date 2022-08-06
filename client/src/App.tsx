@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
-import { HelloPage } from './pages/HelloPage';
-import { RegistrationPage } from './pages/RegistrationPage';
+import { BrowserRouter } from 'react-router-dom';
+import AppRouter from './components/AppRouter';
+
 
 
 function App() {
 
   return (
-    <RegistrationPage/>
+    <BrowserRouter>
+      <AppRouter />
+    </BrowserRouter>
   );
 }
 
