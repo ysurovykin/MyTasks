@@ -1,0 +1,26 @@
+.navbar-wrapper {
+    background-color: #f1f1f1;
+    position: relative;
+    width: fit-content;
+    height: 100vh;
+    padding: 0px 30px;
+
+    nav {
+        display: grid;
+        padding-top: 60px;
+        gap: 50px;
+        svg {
+            cursor: pointer;
+        }
+    }
+
+    span {
+        position: absolute;
+        right: 5px;
+        width: 5px;
+        opacity: 0.8;
+        border-radius: 20px;
+        height: 84px;
+        transition: all 0.2s;
+    }
+}

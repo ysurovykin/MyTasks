@@ -1,0 +1,133 @@
+.task-stats-wrapper {
+    width: 100%;
+    height: 100vh;
+    padding: 50px 100px 0px 100px;
+    display: grid;
+    grid-template-areas:
+        'header checkbox'
+        'stats stats'
+        'stats stats'
+        'chart chart';
+    grid-template-rows: 70px repeat(3, 1fr) 40px;
+    grid-template-columns: 1fr 1fr;
+    row-gap: 30px;
+
+    h1 {
+        font-size: 60px;
+        grid-area: header;
+        margin: 0;
+    }
+
+    .task-stats-wrapper__combobox-wrapper {
+        grid-area: checkbox;
+        display: grid;
+        height: 70%;
+        width: 50%;
+        justify-self: end;
+        border: 1px solid #000000;
+        border-radius: 40px;
+        box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.35);
+
+        .task-stats-wrapper__combobox {
+            width: 90%;
+            height: 100%;
+            cursor: pointer;
+            align-self: center;
+            justify-self: center;
+            background-color: transparent;
+            outline: none;
+            border: none;
+            font-size: 30px;
+
+            option {
+                background-color: #f1f1f1;
+                font-size: 20px;
+
+                &:checked {
+                    background-color: #c5c5c5;
+                }
+            }
+        }
+    }
+
+    .task-stats-wrapper__content {
+        grid-area: stats;
+        display: grid;
+        grid-template-areas:
+            'completed planned'
+            'failed days';
+        grid-template-rows: 1fr 1fr;
+        grid-template-columns: 1fr 1fr;
+        row-gap: 30px;
+        column-gap: 150px;
+
+        .task-stats-wrapper__task-section {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            align-self: center;
+            justify-self: center;
+
+            h2 {
+                font-size: 50px;
+                padding-bottom: 15px;
+                margin: 0;
+            }
+
+            h3 {
+                font-size: 30px;
+                color: rgba(0, 0, 0, 0.5);
+                margin: 0;
+            }
+        }
+
+        .task-stats-wrapper__task-comleted {
+            grid-area: completed;
+            background-image: url("../../../public/images/complele-task-bg.png");
+            background-size: cover;
+
+            h2 {
+                color: #03A900;
+            }
+        }
+
+        .task-stats-wrapper__task-planned {
+            grid-area: planned;
+            background-image: url("../../../public/images/planned-task-bg.png");
+            background-size: cover;
+
+            h2 {
+                color: #E9A800;
+            }
+        }
+
+        .task-stats-wrapper__task-failed {
+            grid-area: failed;
+            background-image: url("../../../public/images/failed-task-bg.png");
+            background-size: cover;
+
+            h2 {
+                color: #F4001D;
+            }
+        }
+
+        .task-stats-wrapper__days-sheduled {
+            grid-area: days;
+            background-image: url("../../../public/images/days-sheduled-bg.png");
+            background-size: cover;
+
+            h2 {
+                color: #0075FF;
+            }
+        }
+    }
+
+    .task-stats-wrapper__chart {
+        grid-area: chart;
+        background-color: fuchsia;
+
+    }
+}

@@ -5,10 +5,13 @@ import '../components/logPage/logPage.scss'
 
 export function LoginPage() {
     const navigate = useNavigate()
-    const [inputValue, setInputValue] = useState('');
-
-    const setValue = (e: any) => {
-        setInputValue(e.target.value);
+    const [emailInput, setEmailInput] = useState('');
+    const [passwordInput, setPasswordInput] = useState('');
+    const setEmailValue = (e: any) => {
+        setEmailInput(e.target.value);
+    }
+    const setPasswordValue = (e: any) => {
+        setPasswordInput(e.target.value);
     }
     const navigateToRegistration = () => {
         navigate("../registration", { replace: true });
@@ -32,8 +35,8 @@ export function LoginPage() {
                 <h2 className='log-page__h2_second'>making big plans</h2>
                 <h3 className='log-page__h3' onClick={navigateToRegistration}><span>Still don`t have an account?</span></h3>
                 <form>
-                    <MyInput id={'log-page__email-input'} title={'Enter your email'} value={inputValue} setValue={setValue} type={'text'} placeHolder={'james_bond_007@gmail.com'} />
-                    <MyInput id={'log-page__password-input'} title={'Enter your password'} value={inputValue} setValue={setValue} type={'password'} placeHolder={'******'} />
+                    <MyInput id={'log-page__email-input'} title={'Enter your email'} value={emailInput} setValue={setEmailValue} type={'text'} placeHolder={'james_bond_007@gmail.com'} />
+                    <MyInput id={'log-page__password-input'} title={'Enter your password'} value={passwordInput} setValue={setPasswordValue} type={'password'} placeHolder={'******'} />
                     <button type={'submit'} className='log-page__button' id='log-btn'>SIGN IN</button>
                 </form>
             </div>
