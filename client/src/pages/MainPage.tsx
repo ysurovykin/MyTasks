@@ -1,8 +1,10 @@
 import { useState } from 'react'
 import Navbar from '../components/navbar'
+import MobileFooter from '../components/mobileFooter'
 import TaskDaily from '../components/taskDaily';
 import TaskStats from '../components/taskStats';
 import TaskPlaylist from '../components/taskPlaylist';
+import '../components/mainPage/mainPage.scss'
 
 export function MainPage() {
 
@@ -17,9 +19,10 @@ export function MainPage() {
     }
 
     return (
-        <div style={{display: 'flex'}}>
-            <Navbar page={page} setPage={setPage}/>
+        <div className='main-page-wrapper'>
+            <Navbar page={page} setPage={setPage} />
             {switchPages()}
+            <MobileFooter />
         </div>
     )
 }

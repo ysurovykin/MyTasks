@@ -6,10 +6,10 @@ function taskStats() {
             <h1>Tasks Stats</h1>
             <div className='task-stats-wrapper__combobox-wrapper'>
                 <select className='task-stats-wrapper__combobox'>
-                    <option value="week">Week</option>
-                    <option value="month">Month</option>
-                    <option value="year">Year</option>
                     <option value="all">All time</option>
+                    <option value="year">Year</option>
+                    <option value="month">Month</option>
+                    <option value="week">Week</option>
                 </select>
             </div>
             <div className='task-stats-wrapper__content'>
@@ -31,6 +31,7 @@ function taskStats() {
                 </div>
             </div>
             <div className='task-stats-wrapper__chart'>Stats</div>
+            <div className='whitespace'></div>
         </div>
     )
 }

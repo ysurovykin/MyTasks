@@ -1,3 +1,7 @@
+// body{
+//     overflow: auto !important;
+// }
+
 .task-stats-wrapper {
     width: 100%;
     height: 100vh;
@@ -12,21 +16,76 @@
     grid-template-columns: 1fr 1fr;
     row-gap: 30px;
 
+    @media (max-width: 1100px) {
+        padding: 50px 80px 0px 80px;
+    }
+    @media (max-width: 950px) {
+        padding: 50px 50px 0px 50px;
+    }
+
+    @media (min-width: 651px) {
+        [class=whitespace] {
+            display: none;
+        }
+    }
+
+    @media (max-width: 650px) {
+        padding: 20px 0px 0px 0px;
+        grid-template-areas:
+            'header'
+            'checkbox'
+            'stats'
+            'chart'
+            'whitespace';
+        grid-template-rows: 60px 70px repeat(2, 1fr);
+        grid-template-columns: none;
+    }
+
     h1 {
         font-size: 60px;
         grid-area: header;
         margin: 0;
+        align-self: center;
+
+        @media (max-width: 950px) {
+            font-size: 40px;
+        }
+
+        @media (max-width: 650px) {
+            align-self: center;
+            justify-self: center;
+        }
+
+        @media (max-width: 400px) {
+            font-size: 40px;
+        }
     }
 
     .task-stats-wrapper__combobox-wrapper {
         grid-area: checkbox;
         display: grid;
+        align-self: center;
         height: 70%;
         width: 50%;
         justify-self: end;
         border: 1px solid #000000;
         border-radius: 40px;
         box-shadow: 6px 6px 6px rgba(0, 0, 0, 0.35);
+
+        @media (max-width: 1100px) {
+            width: 65%;
+        }
+
+        @media (max-width: 950px) {
+            width: 80%;
+        }
+
+        @media (max-width: 650px) {
+            margin-top: -70px;
+            width: 50%;
+            align-self: center;
+            justify-self: center;
+        }
 
         .task-stats-wrapper__combobox {
             width: 90%;
@@ -42,6 +101,10 @@
             option {
                 background-color: #f1f1f1;
                 font-size: 20px;
+
+                @media (max-width: 650px) {
+                    font-size: 15px;
+                }
 
                 &:checked {
                     background-color: #c5c5c5;
@@ -61,6 +124,27 @@
         row-gap: 30px;
         column-gap: 150px;
 
+        @media (max-width: 1100px) {
+            column-gap: 80px;
+        }
+
+        @media (max-width: 950px) {
+            column-gap: 60px;
+        }
+
+        @media (max-width: 650px) {
+            grid-template-areas:
+                'completed'
+                'planned'
+                'failed'
+                'days';
+            grid-template-rows: repeat(4, 1fr);
+            grid-template-columns: 1fr;
+            align-items: center;
+            justify-content: center;
+            padding: 0px 20px 0px 20px;
+        }
+
         .task-stats-wrapper__task-section {
             height: 100%;
             width: 100%;
@@ -71,6 +155,10 @@
             align-self: center;
             justify-self: center;
 
+            @media (max-width: 650px) {
+                height: 180px;
+            }
+
             h2 {
                 font-size: 50px;
                 padding-bottom: 15px;
@@ -79,8 +167,16 @@
 
             h3 {
                 font-size: 30px;
+                text-align: center;
+                font-weight: normal;
                 color: rgba(0, 0, 0, 0.5);
                 margin: 0;
+                @media (max-width: 950px) {
+                    font-size: 25px;
+                }
+                @media (max-width: 830px) {
+                    font-size: 20px;
+                }
             }
         }
 
@@ -129,5 +225,14 @@
         grid-area: chart;
         background-color: fuchsia;
 
+        @media (max-width: 650px) {
+            margin: 0px 20px 0px 20px;
+            height: 300px;
+        }
+    }
+
+    .whitespace {
+        width: 100%;
+        height: 120px;
     }
 }

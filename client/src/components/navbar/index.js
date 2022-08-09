@@ -10,11 +10,18 @@ function navbar({ page, setPage }) {
             case 'playlists': return '#FA00FF'
         }
     }
-    const spanPosition = () => {
+    const spanPcPosition = () => {
         switch (page) {
-            case 'stats': return '7%'
-            case 'daily': return '23%'
-            case 'playlists': return '39%'
+            case 'stats': return '1'
+            case 'daily': return '2'
+            case 'playlists': return '3'
+        }
+    }
+    const spanMobilePosition = () => {
+        switch (page) {
+            case 'stats': return '1'
+            case 'daily': return '2'
+            case 'playlists': return '3'
         }
     }
     const setStats = () => {
@@ -52,7 +59,7 @@ function navbar({ page, setPage }) {
                         fill={page === 'playlists' ? "#FA00FF" : 'black'} />
                 </svg>
                 {mode ?
-                    <svg width="64" height="64" viewBox="0 0 64 64"
+                    <svg className='navbar-wrapper__pc-theme-changer' width="64" height="64" viewBox="0 0 64 64"
                         fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M30.5735 52.0718L30.3924 52.5378L30.5735 52.0718ZM30.8772 50.1884L30.9896 50.6756L30.8772 50.1884ZM28.8413 51.0199L29.34 51.0559L28.8413 51.0199ZM37.1745 16.5681L36.8927 16.9812L37.1745 16.5681ZM55.5 34.6667C55.5 24.6335 47.3665 16.5 37.3333 16.5V15.5C47.9188 15.5 56.5 24.0812 56.5 34.6667H55.5ZM37.3333 52.8333C47.3665 52.8333 55.5 44.6998 55.5 34.6667H56.5C56.5 45.2521 47.9188 53.8333 37.3333 53.8333V52.8333ZM30.7547 51.6057C32.7939 52.3983 35.0122 52.8333 37.3333 52.8333V53.8333C34.8863 53.8333 32.5453 53.3745 30.3924 52.5378L30.7547 51.6057ZM30.7649 49.7012C38.8245 47.8431 44.8333 40.6219 44.8333 31.9986H45.8333C45.8333 41.0979 39.4929 48.7152 30.9896 50.6756L30.7649 49.7012ZM44.8333 31.9986C44.8333 25.7583 41.6874 20.2526 36.8927 16.9812L37.4563 16.1551C42.5124 19.6049 45.8333 25.4138 45.8333 31.9986H44.8333ZM30.3924 52.5378C29.8214 52.3159 29.3427 52.131 29.0162 51.9508C28.7299 51.7928 28.3051 51.5035 28.3426 50.9839L29.34 51.0559C29.351 50.9046 29.206 50.9134 29.4994 51.0753C29.7525 51.215 30.1532 51.3719 30.7547 51.6057L30.3924 52.5378ZM30.9896 50.6756C30.3051 50.8334 29.8401 50.9416 29.5381 51.0516C29.3871 51.1067 29.3207 51.1473 29.2977 51.166C29.2876 51.1742 29.3343 51.1354 29.34 51.0559L28.3426 50.9839C28.3617 50.7203 28.502 50.5241 28.6669 50.3901C28.8188 50.2666 29.0085 50.1803 29.1957 50.1121C29.5702 49.9756 30.1099 49.8522 30.7649 49.7012L30.9896 50.6756ZM37.3333 16.5C37.3719 16.5 37.4205 16.4855 37.4619 16.4516C37.4997 16.4206 37.5195 16.3837 37.5282 16.3522C37.5454 16.2895 37.5258 16.2026 37.4563 16.1551L36.8927 16.9812C36.5723 16.7626 36.4804 16.3916 36.5638 16.0876C36.6487 15.7784 36.928 15.5 37.3333 15.5V16.5Z"
                             fill="black" />
@@ -60,7 +67,7 @@ function navbar({ page, setPage }) {
                             stroke="black" />
                     </svg>
                     :
-                    <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <svg className='navbar-wrapper__pc-theme-changer' width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <circle cx="32" cy="32" r="10.1667" stroke="white" />
                         <path d="M32 13.3333V8" stroke="white" stroke-linecap="round" />
                         <path d="M32 56V50.6666" stroke="white" stroke-linecap="round" />
@@ -72,8 +79,9 @@ function navbar({ page, setPage }) {
                         <path d="M15.0295 15.0282L18.8008 18.7994" stroke="white" stroke-linecap="round" />
                     </svg>
                 }
+                <span className='mobile-span' style={{ backgroundColor: `${spanColor()}`, gridColumn: `${spanMobilePosition()}` }}></span>
+                <span className='pc-span' style={{ backgroundColor: `${spanColor()}`, gridRow: `${spanPcPosition()}` }}></span>
             </nav>
-            <span style={{backgroundColor: `${spanColor()}`, top: `${spanPosition()}`}}></span>
         </div >
     )
 }

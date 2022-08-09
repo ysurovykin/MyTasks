@@ -1,0 +1,6 @@
+.main-page-wrapper{
+    display: flex;
+    @media (max-width: 650px) {
+        flex-direction: column;
+    }
+}
