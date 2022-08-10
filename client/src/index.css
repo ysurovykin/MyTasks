@@ -1,7 +1,14 @@
-*{
+* {
   font-family: 'Outfit', sans-serif;
 }
+
 body {
   margin: 0;
-
+  overflow: hidden;
+}
+@media (max-width: 650px) {
+  body {
+    margin: 0;
+    overflow: auto;
+  }
 }

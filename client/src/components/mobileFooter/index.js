@@ -6,7 +6,7 @@ function mobileFooter() {
     return (
         <div className="mobile-footer">
             <svg viewBox="0 0 428 89" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M0 74.4774H17.8333C35.6667 74.4774 74.8333 74.4774 110.5 55.2575C146.167 36.0375 179 -0.000337422 214 1.0284e-09C249 1.0284e-09 278.333 40.8425 314 55.2575C346 69.6724 389 74.4774 410.167 74.4774H428V88.8924H410.167C392.333 88.8924 356.667 88.8924 321 88.8924C285.333 88.8924 249.667 88.8924 214 88.8924C178.333 88.8924 142.667 88.8924 107 88.8924C71.3333 88.8924 35.6667 88.8924 17.8333 88.8924H0V74.4774Z" fill="#E0E0E0" />
+                <path fillRule="evenodd" clipRule="evenodd" d="M0 74.4774H17.8333C35.6667 74.4774 74.8333 74.4774 110.5 55.2575C146.167 36.0375 179 -0.000337422 214 1.0284e-09C249 1.0284e-09 278.333 40.8425 314 55.2575C346 69.6724 389 74.4774 410.167 74.4774H428V88.8924H410.167C392.333 88.8924 356.667 88.8924 321 88.8924C285.333 88.8924 249.667 88.8924 214 88.8924C178.333 88.8924 142.667 88.8924 107 88.8924C71.3333 88.8924 35.6667 88.8924 17.8333 88.8924H0V74.4774Z" fill="#E0E0E0" />
             </svg>
 
             {mode ?
@@ -20,14 +20,14 @@ function mobileFooter() {
                 :
                 <svg className='mobile-footer__icon' width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <circle cx="32" cy="32" r="10.1667" stroke="white" />
-                    <path d="M32 13.3333V8" stroke="white" stroke-linecap="round" />
-                    <path d="M32 56V50.6666" stroke="white" stroke-linecap="round" />
-                    <path d="M45.1995 18.7999L48.9707 15.0287" stroke="white" stroke-linecap="round" />
-                    <path d="M15.0295 48.9718L18.8008 45.2006" stroke="white" stroke-linecap="round" />
-                    <path d="M50.6667 32L56 32" stroke="white" stroke-linecap="round" />
-                    <path d="M7.99998 32L13.3333 32" stroke="white" stroke-linecap="round" />
-                    <path d="M45.1995 45.2001L48.9707 48.9713" stroke="white" stroke-linecap="round" />
-                    <path d="M15.0295 15.0282L18.8008 18.7994" stroke="white" stroke-linecap="round" />
+                    <path d="M32 13.3333V8" stroke="white" strokeLinecap="round" />
+                    <path d="M32 56V50.6666" stroke="white" strokeLinecap="round" />
+                    <path d="M45.1995 18.7999L48.9707 15.0287" stroke="white" strokeLinecap="round" />
+                    <path d="M15.0295 48.9718L18.8008 45.2006" stroke="white" strokeLinecap="round" />
+                    <path d="M50.6667 32L56 32" stroke="white" strokeLinecap="round" />
+                    <path d="M7.99998 32L13.3333 32" stroke="white" strokeLinecap="round" />
+                    <path d="M45.1995 45.2001L48.9707 48.9713" stroke="white" strokeLinecap="round" />
+                    <path d="M15.0295 15.0282L18.8008 18.7994" stroke="white" strokeLinecap="round" />
                 </svg>
             }
         </div >

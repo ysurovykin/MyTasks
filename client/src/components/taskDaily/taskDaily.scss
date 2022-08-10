@@ -1,0 +1,645 @@
+.task-daily-wrapper {
+    width: 100%;
+    height: 100vh;
+    padding: 50px 100px 0px 100px;
+    display: grid;
+    grid-template-areas:
+        'header progress'
+        'tasks tasks';
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 70px 1fr 20px;
+    row-gap: 80px;
+
+    @media (max-width: 1000px) {
+        padding: 50px 80px 0px 80px;
+    }
+
+    @media (max-width: 800px) {
+        padding: 50px 70px 0px 70px;
+    }
+
+    @media (min-width: 650px) {
+        [class=task-daily-wrapper__header_mobile] {
+            display: none;
+        }
+    }
+
+    @media (max-width: 650px) {
+        [class=task-daily-wrapper__header_pc] {
+            display: none;
+        }
+        
+        padding: 50px 0px 0px 0px;
+        width: 95%;
+        align-self: center;
+        grid-template-areas: 'header'
+        'progress'
+        'tasks';
+        grid-template-columns: 1fr;
+        grid-template-rows: 70px 70px 1fr;
+        row-gap: 40px;
+    }
+
+    .task-daily-wrapper__header_pc {
+        font-size: 40px;
+        grid-area: header;
+        align-self: center;
+        margin: 0;
+
+        @media (max-width: 1100px) {
+            font-size: 35px;
+        }
+
+        @media (max-width: 900px) {
+            font-size: 30px;
+        }
+
+        @media (max-width: 760px) {
+            font-size: 25px;
+        }
+    }
+
+    .task-daily-wrapper__header_mobile {
+        font-size: 50px;
+        grid-area: header;
+        align-self: center;
+        justify-self: center;
+        margin: 0;
+        @media (max-width: 500px) {
+            font-size: 40px;
+        }
+        @media (max-width: 400px) {
+            font-size: 35px;
+        }
+    }
+
+    .task-daily-wrapper__progress {
+        font-size: 40px;
+        grid-area: progress;
+        align-self: center;
+        justify-self: end;
+        text-align: end;
+        margin: 0;
+
+        @media (max-width: 1100px) {
+            font-size: 35px;
+        }
+
+        @media (max-width: 900px) {
+            font-size: 30px;
+        }
+
+        @media (max-width: 760px) {
+            font-size: 25px;
+        }
+
+        @media (max-width: 650px) {
+            font-size: 40px;
+            font-weight: 500;
+            justify-self: center;
+            text-align: center;
+            margin-top: -50px;
+        }
+        @media (max-width: 500px) {
+            font-size: 30px;
+        }
+        @media (max-width: 350px) {
+            font-size: 25px;
+        }
+    }
+
+    .task-daily-wrapper__tasks-wrapper {
+        grid-area: tasks;
+        display: grid;
+        grid-template-areas:
+            'most'
+            'important'
+            'casual';
+        grid-template-rows: repeat(3, auto);
+        overflow-y: auto;
+        overflow-x: hidden;
+        row-gap: 30px;
+        @media (max-width: 650px) {
+            overflow: visible;
+            padding-bottom: 140px;
+        }
+        @media (max-width: 550px) {
+            padding-bottom: 120px;
+        }
+        @media (max-width: 450px) {
+            padding-bottom: 100px;
+        }
+        @media (max-width: 350px) {
+            padding-bottom: 80px;
+        }
+        .task-daily-wrapper__most-important-tasks-wrapper {
+            grid-area: most;
+            position: relative;
+            height: fit-content;
+
+
+            .task-daily-wrapper__most-important-tasks-header {
+                display: flex;
+                justify-content: space-between;
+                background-color: #E88282;
+                height: 80px;
+                width: 100%;
+                border-radius: 20px;
+                text-align: start;
+                padding: 5px 0px;
+
+                img {
+                    width: 64px;
+                    height: 64px;
+                    cursor: pointer;
+                    align-self: center;
+
+                }
+
+                h2 {
+                    font-size: 40px;
+                    margin: 0;
+                    font-weight: 500;
+                    align-self: center;
+                    padding-left: 20px;
+
+                    @media (max-width: 1100px) {
+                        font-size: 35px;
+                    }
+
+                    @media (max-width: 900px) {
+                        font-size: 30px;
+                    }
+                    @media (max-width: 420px) {
+                        font-size: 25px;
+                    }
+                    @media (max-width: 350px) {
+                        font-size: 20px;
+                    }
+                }
+
+            }
+
+            .task-daily-wrapper__most-important-tasks {
+                position: relative;
+                display: grid;
+                row-gap: 20px;
+                top: -20px;
+                padding: 50px 0px 20px 0px;
+                width: 100%;
+                height: fit-content;
+                background-color: rgba(232, 130, 130, 0.5);
+                border-radius: 0px 0px 20px 20px;
+
+                .task-daily-wrapper__plus-img {
+                    align-self: center;
+                    justify-self: center;
+                    background-color: white;
+                    width: 140px;
+                    height: 80px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border-radius: 20px;
+
+                    @media (min-width: 90px) {
+                        width: 120px;
+                        height: 70px;
+                    }
+
+                    @media (min-width: 650px) {
+                        &:hover {
+                            background-color: #f3f3f3;
+                        }
+                    }
+
+                    img {
+                        cursor: pointer;
+                    }
+                }
+
+                .task-wrapper {
+                    justify-self: center;
+                    width: 92%;
+                    border-radius: 20px;
+                    padding: 0px 20px;
+                    height: fit-content;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    background-color: white;
+
+                    @media (max-width: 1000px) {
+                        padding: 0px 10px;
+                    }
+
+                    h2 {
+                        font-size: 25px;
+                        font-weight: 500;
+
+                        @media (max-width: 900px) {
+                            font-size: 20px;
+                        }
+                    }
+
+                    @media (min-width: 650px) {
+                        &:hover {
+                            background-color: #f3f3f3;
+                        }
+
+                        &:hover>.task-wrapper__edit-wrapper {
+                            display: flex;
+                        }
+
+                    }
+
+                    .task-wrapper__complete {
+                        width: 48px;
+                        height: 48px;
+
+                        @media (max-width: 900px) {
+                            width: 38px;
+                            height: 38px;
+                        }
+                    }
+
+                    .task-wrapper__edit-wrapper {
+                        border-radius: 50%;
+                        width: 48px;
+                        height: 48px;
+                        display: none;
+                        align-items: center;
+                        justify-content: center;
+                        transition: all 0.2s;
+
+                        @media (max-width: 900px) {
+                            width: 38px;
+                            height: 38px;
+                        }
+
+                        @media (max-width: 650px) {
+                            display: flex;
+                        }
+
+                        &:hover {
+                            background-color: #d9d9d9;
+                        }
+
+
+
+                        img {
+                            width: 42px;
+                            height: 42px;
+
+                            @media (max-width: 900px) {
+                                width: 32px;
+                                height: 32px;
+                            }
+                        }
+                    }
+                }
+
+            }
+
+            // &:hover > .task-daily-wrapper__most-important-tasks{
+            //     height: 300px;
+            // }
+        }
+
+        .task-daily-wrapper__important-tasks-wrapper {
+            grid-area: important;
+            position: relative;
+
+            .task-daily-wrapper__important-tasks-header {
+                background-color: #F3D27B;
+                display: flex;
+                justify-content: space-between;
+                height: 80px;
+                width: 100%;
+                padding: 5px 0px;
+                border-radius: 20px;
+                text-align: start;
+
+                img {
+                    width: 64px;
+                    height: 64px;
+                    cursor: pointer;
+                    align-self: center;
+                }
+
+                h2 {
+                    font-size: 40px;
+                    margin: 0;
+                    font-weight: 500;
+                    align-self: center;
+                    padding-left: 20px;
+
+                    @media (max-width: 1100px) {
+                        font-size: 35px;
+                    }
+
+                    @media (max-width: 900px) {
+                        font-size: 30px;
+                    }
+                    @media (max-width: 420px) {
+                        font-size: 25px;
+                    }
+                    @media (max-width: 350px) {
+                        font-size: 20px;
+                    }
+                }
+            }
+
+            .task-daily-wrapper__important-tasks {
+                position: relative;
+                display: grid;
+                row-gap: 20px;
+                top: -20px;
+                padding: 50px 0px 20px 0px;
+                width: 100%;
+                height: fit-content;
+                background-color: rgba(243, 210, 123, 0.5);
+                border-radius: 0px 0px 20px 20px;
+
+                .task-daily-wrapper__plus-img {
+                    align-self: center;
+                    justify-self: center;
+                    background-color: white;
+                    width: 140px;
+                    height: 80px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border-radius: 20px;
+
+                    @media (min-width: 90px) {
+                        width: 120px;
+                        height: 70px;
+                    }
+
+                    @media (min-width: 650px) {
+                        &:hover {
+                            background-color: #f3f3f3;
+                        }
+                    }
+
+                    img {
+                        cursor: pointer;
+                    }
+                }
+
+                .task-wrapper {
+                    justify-self: center;
+                    width: 92%;
+                    border-radius: 20px;
+                    padding: 0px 20px;
+                    height: fit-content;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    background-color: white;
+
+                    @media (max-width: 1000px) {
+                        padding: 0px 10px;
+                    }
+
+                    h2 {
+                        font-size: 25px;
+                        font-weight: 500;
+
+                        @media (max-width: 900px) {
+                            font-size: 20px;
+                        }
+                    }
+
+                    @media (min-width: 650px) {
+                        &:hover {
+                            background-color: #f3f3f3;
+                        }
+
+                        &:hover>.task-wrapper__edit-wrapper {
+                            display: flex;
+                        }
+                    }
+
+                    .task-wrapper__complete {
+                        width: 48px;
+                        height: 48px;
+
+                        @media (max-width: 900px) {
+                            width: 38px;
+                            height: 38px;
+                        }
+                    }
+
+                    .task-wrapper__edit-wrapper {
+                        border-radius: 50%;
+                        width: 48px;
+                        height: 48px;
+                        display: none;
+                        align-items: center;
+                        justify-content: center;
+                        transition: all 0.2s;
+
+                        @media (max-width: 900px) {
+                            width: 38px;
+                            height: 38px;
+                        }
+
+                        @media (max-width: 650px) {
+                            display: flex;
+                        }
+
+                        &:hover {
+                            background-color: #d9d9d9;
+                        }
+
+                        img {
+                            width: 42px;
+                            height: 42px;
+
+                            @media (max-width: 900px) {
+                                width: 32px;
+                                height: 32px;
+                            }
+                        }
+                    }
+                }
+            }
+
+            // &:hover > .task-daily-wrapper__important-tasks{
+            //     height: 300px;
+            // }
+        }
+
+        .task-daily-wrapper__casual-tasks-wrapper {
+            grid-area: casual;
+            position: relative;
+
+            .task-daily-wrapper__casual-tasks-header {
+                background-color: #7CE393;
+                display: flex;
+                justify-content: space-between;
+                height: 80px;
+                width: 100%;
+                padding: 5px 0px;
+                border-radius: 20px;
+                text-align: start;
+
+                img {
+                    width: 64px;
+                    height: 64px;
+                    cursor: pointer;
+                    align-self: center;
+                }
+
+                h2 {
+                    font-size: 40px;
+                    margin: 0;
+                    font-weight: 500;
+                    align-self: center;
+                    padding-left: 20px;
+
+                    @media (max-width: 1100px) {
+                        font-size: 35px;
+                    }
+
+                    @media (max-width: 900px) {
+                        font-size: 30px;
+                    }
+                    @media (max-width: 420px) {
+                        font-size: 25px;
+                    }
+                    @media (max-width: 350px) {
+                        font-size: 20px;
+                    }
+                }
+            }
+
+            .task-daily-wrapper__casual-tasks {
+                position: relative;
+                display: grid;
+                row-gap: 20px;
+                top: -20px;
+                padding: 50px 0px 20px 0px;
+                width: 100%;
+                height: fit-content;
+                background-color: rgba(124, 227, 147, 0.5);
+                border-radius: 0px 0px 20px 20px;
+
+                .task-daily-wrapper__plus-img {
+                    align-self: center;
+                    justify-self: center;
+                    background-color: white;
+                    width: 140px;
+                    height: 80px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border-radius: 20px;
+
+                    @media (min-width: 90px) {
+                        width: 120px;
+                        height: 70px;
+                    }
+
+                    @media (min-width: 650px) {
+                        &:hover {
+                            background-color: #f3f3f3;
+                        }
+                    }
+
+                    img {
+                        cursor: pointer;
+                    }
+                }
+
+                .task-wrapper {
+                    justify-self: center;
+                    width: 92%;
+                    border-radius: 20px;
+                    padding: 0px 20px;
+                    height: fit-content;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    background-color: white;
+
+                    @media (max-width: 1000px) {
+                        padding: 0px 10px;
+                    }
+
+                    h2 {
+                        font-size: 25px;
+                        font-weight: 500;
+
+                        @media (max-width: 900px) {
+                            font-size: 20px;
+                        }
+                    }
+
+                    @media (min-width: 650px) {
+                        &:hover {
+                            background-color: #f3f3f3;
+                        }
+
+                        &:hover>.task-wrapper__edit-wrapper {
+                            display: flex;
+                        }
+                    }
+
+                    .task-wrapper__complete {
+                        width: 48px;
+                        height: 48px;
+
+                        @media (max-width: 900px) {
+                            width: 38px;
+                            height: 38px;
+                        }
+                    }
+
+                    .task-wrapper__edit-wrapper {
+                        border-radius: 50%;
+                        width: 48px;
+                        height: 48px;
+                        display: none;
+                        align-items: center;
+                        justify-content: center;
+                        transition: all 0.2s;
+
+                        @media (max-width: 900px) {
+                            width: 38px;
+                            height: 38px;
+                        }
+
+                        @media (max-width: 650px) {
+                            display: flex;
+                        }
+
+                        &:hover {
+                            background-color: #d9d9d9;
+                        }
+
+                        img {
+                            width: 42px;
+                            height: 42px;
+
+                            @media (max-width: 900px) {
+                                width: 32px;
+                                height: 32px;
+                            }
+                        }
+                    }
+                }
+            }
+
+            // &:hover > .task-daily-wrapper__casual-tasks{
+            //     height: 300px;
+            // }
+        }
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
+}

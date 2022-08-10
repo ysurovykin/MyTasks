@@ -69,14 +69,14 @@ function navbar({ page, setPage }) {
                     :
                     <svg className='navbar-wrapper__pc-theme-changer' width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <circle cx="32" cy="32" r="10.1667" stroke="white" />
-                        <path d="M32 13.3333V8" stroke="white" stroke-linecap="round" />
-                        <path d="M32 56V50.6666" stroke="white" stroke-linecap="round" />
-                        <path d="M45.1995 18.7999L48.9707 15.0287" stroke="white" stroke-linecap="round" />
-                        <path d="M15.0295 48.9718L18.8008 45.2006" stroke="white" stroke-linecap="round" />
-                        <path d="M50.6667 32L56 32" stroke="white" stroke-linecap="round" />
-                        <path d="M7.99998 32L13.3333 32" stroke="white" stroke-linecap="round" />
-                        <path d="M45.1995 45.2001L48.9707 48.9713" stroke="white" stroke-linecap="round" />
-                        <path d="M15.0295 15.0282L18.8008 18.7994" stroke="white" stroke-linecap="round" />
+                        <path d="M32 13.3333V8" stroke="white" strokeLinecap="round" />
+                        <path d="M32 56V50.6666" stroke="white" strokeLinecap="round" />
+                        <path d="M45.1995 18.7999L48.9707 15.0287" stroke="white" strokeLinecap="round" />
+                        <path d="M15.0295 48.9718L18.8008 45.2006" stroke="white" strokeLinecap="round" />
+                        <path d="M50.6667 32L56 32" stroke="white" strokeLinecap="round" />
+                        <path d="M7.99998 32L13.3333 32" stroke="white" strokeLinecap="round" />
+                        <path d="M45.1995 45.2001L48.9707 48.9713" stroke="white" strokeLinecap="round" />
+                        <path d="M15.0295 15.0282L18.8008 18.7994" stroke="white" strokeLinecap="round" />
                     </svg>
                 }
                 <span className='mobile-span' style={{ backgroundColor: `${spanColor()}`, gridColumn: `${spanMobilePosition()}` }}></span>
