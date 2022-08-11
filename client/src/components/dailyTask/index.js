@@ -1,5 +1,5 @@
 
-function Task({isComplete}) {
+function DailyTask({isComplete}) {
 
     return (
         <div className="task-wrapper" style={{backgroundColor: `${isComplete ? '#D0D0D0' : null}`}}>
@@ -13,4 +13,4 @@ function Task({isComplete}) {
     )
 }
 
-export default Task;
+export default DailyTask;

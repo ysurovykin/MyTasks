@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import Task from '../task';
+import DailyTask from '../dailyTask';
 import './taskDaily.scss'
 
 function TaskDaily() {
@@ -32,8 +32,8 @@ function TaskDaily() {
                     </div>
                     {isMostImportantTasks
                         ? <div className='task-daily-wrapper__most-important-tasks'>
-                            <Task isComplete={false} />
-                            <Task isComplete={false} />
+                            <DailyTask isComplete={false} />
+                            <DailyTask isComplete={false} />
                             <div className='task-daily-wrapper__plus-img'>
                                 <img src='./images/plus-circle.png'/>
                             </div>
@@ -48,10 +48,10 @@ function TaskDaily() {
                     </div>
                     {isImportantTasks
                         ? <div className='task-daily-wrapper__important-tasks'>
-                            <Task isComplete={true} />
-                            <Task isComplete={true} />
-                            <Task isComplete={false} />
-                            <Task isComplete={true} />
+                            <DailyTask isComplete={true} />
+                            <DailyTask isComplete={true} />
+                            <DailyTask isComplete={false} />
+                            <DailyTask isComplete={true} />
                             <div className='task-daily-wrapper__plus-img'>
                                 <img src='./images/plus-circle.png'/>
                             </div>
