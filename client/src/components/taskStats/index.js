@@ -1,6 +1,6 @@
 import './taskStats.scss'
 
-function taskStats() {
+function TaskStats() {
     return (
         <div className='task-stats-wrapper'>
             <h1>Tasks Stats</h1>
@@ -36,4 +36,4 @@ function taskStats() {
     )
 }
 
-export default taskStats
+export default TaskStats

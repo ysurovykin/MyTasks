@@ -1,0 +1,172 @@
+.create-form-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.5);
+
+    @media (max-width: 650px) {
+        align-items: flex-start;
+    }
+
+    .create-form {
+        width: 400px;
+        height: 550px;
+        border-radius: 30px;
+        background-color: #ffffff;
+        display: grid;
+        row-gap: 0px;
+        padding: 20px;
+        align-items: center;
+        justify-content: center;
+
+        @media (max-width: 650px) {
+            margin-top: 40px;
+        }
+
+        @media (max-width: 500px) {
+            margin-top: 50px;
+        }
+
+        @media (max-width: 450px) {
+            padding: 20px 0px;
+        }
+
+        @media (max-width: 420px) {
+            width: 350px;
+            height: 530px;
+        }
+
+        .form-input {
+
+            h2 {
+                color: black;
+                font-size: 20px;
+                margin: 0;
+                margin-bottom: 5px;
+                padding-left: 10px;
+                font-weight: normal;
+
+                @media (max-width: 420px) {
+                    font-size: 18px;
+                }
+            }
+
+            .input-wrapper {
+                background-color: #EBEBEB;
+                width: 300px;
+                height: 70px;
+                border-radius: 30px;
+                padding: 0px 30px 0px 25px;
+                display: flex;
+                align-items: center;
+
+                @media (max-width: 420px) {
+                    width: 250px;
+                    height: 60px;
+                }
+
+
+                h3 {
+                    color: black;
+                    font-size: 15px;
+                    margin: 0;
+                    font-weight: normal;
+                }
+
+                .input {
+                    color: black;
+                    font-size: 20px;
+                    background: none;
+                    border: none;
+                    border-bottom: 1px solid rgb(99, 99, 99);
+                    width: 100%;
+                    outline: none;
+
+                    @media (max-width: 420px) {
+                        font-size: 18px;
+                    }
+
+                    &:focus {
+                        border-bottom: 1px solid rgb(0, 0, 0);
+                    }
+
+                }
+
+                .input[type=date]::-webkit-calendar-picker-indicator {
+                    background: url('../../../public/images/calendar.png');
+                    background-size: contain;
+                    width: 30px;
+                    height: 30px;
+                }
+
+            }
+
+            .circle-wrapper {
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+
+
+                .importance-wrapper {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+
+                    .form-circle {
+                        width: 24px;
+                        height: 24px;
+                        border-radius: 50%;
+                    }
+
+                    .green-circle {
+                        background-color: #7CE393;
+                    }
+
+                    .yellow-circle {
+                        background-color: #F3D27B;
+                    }
+
+                    .red-circle {
+                        background-color: #E88282;
+                    }
+                }
+            }
+        }
+
+        .form-buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            .create-btn {
+                outline: none;
+                border: none;
+                border-radius: 30px;
+                padding: 10px 30px;
+                font-size: 25px;
+                cursor: pointer;
+                background-color: rgba(124, 227, 147, 0.75);
+
+
+            }
+
+            .cancel-btn {
+                outline: none;
+                border: none;
+                border-radius: 30px;
+                padding: 10px 30px;
+                font-size: 25px;
+                cursor: pointer;
+                background-color: rgba(232, 130, 130, 0.75);
+
+
+            }
+        }
+    }
+}

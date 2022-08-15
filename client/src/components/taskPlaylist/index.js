@@ -1,9 +1,17 @@
+import { useState } from 'react';
+import CreatePlaylistForm from '../createPlaylistForm'
 import Playlist from '../playlist'
 import './taskPlaylist.scss'
 
-function taskPlaylist() {
+function TaskPlaylist() {
+
+    const [isCreate, setIsCreate] = useState(false);
+    const setIsCreateValue = () => {
+        setIsCreate(!isCreate);
+    }
+
     return (
-        <div className='task-playlists-wrapper'>
+        <div className='task-playlists-wrapper' >
             <h1>Task playlists</h1>
             <div className='task-playlists-wrapper__playlists'>
                 <Playlist />
@@ -14,13 +22,17 @@ function taskPlaylist() {
                 <Playlist />
                 <Playlist />
                 <div className="task-playlists-wrapper__add-playlist-wrapper">
-                    <div className="playlist">
-                        <img src='./images/plus-circle128x128.png'/>
+                    <div className="playlist" onClick={setIsCreateValue}>
+                        <img src='./images/plus-circle128x128.png' />
                     </div>
                 </div>
             </div>
+            {isCreate
+                ? <CreatePlaylistForm setIsCreateValue={setIsCreateValue} />
+                : null
+            }
         </div>
     )
 }
 
-export default taskPlaylist
+export default TaskPlaylist

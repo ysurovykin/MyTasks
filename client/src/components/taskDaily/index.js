@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import CreateTaskForm from '../createTaskForm';
 import DailyTask from '../dailyTask';
 import './taskDaily.scss'
 
@@ -7,7 +8,11 @@ function TaskDaily() {
     const [isMostImportantTasks, setIsMostImportantTasks] = useState(false);
     const [isImportantTasks, setIsImportantTasks] = useState(false);
     const [isCasualTasks, setIsCasualTasks] = useState(false);
-
+    const [isCreate, setIsCreate] = useState(false);
+    
+    const setIsCreateValue = () => {
+        setIsCreate(!isCreate);
+    }
     const onClickMostImportantTasks = () => {
         setIsMostImportantTasks(!isMostImportantTasks);
     }
@@ -34,8 +39,8 @@ function TaskDaily() {
                         ? <div className='task-daily-wrapper__most-important-tasks'>
                             <DailyTask isComplete={false} />
                             <DailyTask isComplete={false} />
-                            <div className='task-daily-wrapper__plus-img'>
-                                <img src='./images/plus-circle.png'/>
+                            <div onClick={setIsCreateValue} className='task-daily-wrapper__plus-img'>
+                                <img src='./images/plus-circle.png' alt='most-plus' />
                             </div>
                         </div>
                         : null}
@@ -52,8 +57,8 @@ function TaskDaily() {
                             <DailyTask isComplete={true} />
                             <DailyTask isComplete={false} />
                             <DailyTask isComplete={true} />
-                            <div className='task-daily-wrapper__plus-img'>
-                                <img src='./images/plus-circle.png'/>
+                            <div onClick={setIsCreateValue} className='task-daily-wrapper__plus-img'>
+                                <img src='./images/plus-circle.png' alt='important-plus' />
                             </div>
                         </div>
                         : null}
@@ -66,13 +71,16 @@ function TaskDaily() {
                     </div>
                     {isCasualTasks
                         ? <div className='task-daily-wrapper__casual-tasks'>
-                            <div className='task-daily-wrapper__plus-img'>
-                                <img src='./images/plus-circle.png'/>
+                            <div onClick={setIsCreateValue} className='task-daily-wrapper__plus-img'>
+                                <img src='./images/plus-circle.png' alt='casual-plus' />
                             </div>
                         </div>
                         : null}
                 </div>
             </div>
+            {isCreate
+                ? <CreateTaskForm setIsCreateValue={setIsCreateValue}/>
+                : null}
         </div>
     )
 }
