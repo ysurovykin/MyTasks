@@ -1,5 +1,5 @@
 const db = require('../db');
-const playlistService = require('../services/playlist-sevices');
+const playlistService = require('../services/playlist-sevice');
 
 class PlaylistController {
 
