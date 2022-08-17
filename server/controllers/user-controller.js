@@ -1,8 +1,7 @@
-const db = require('../db');
 const userService = require('../services/user-service');
 
 class UserController {
-    async registration(req, res) {
+    async registration(req, res, next) {
         try {
             const { name, email, password } = req.body;
             const response = await userService.registration(email, password, name)

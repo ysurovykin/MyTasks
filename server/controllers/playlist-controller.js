@@ -1,9 +1,8 @@
-const db = require('../db');
-const playlistService = require('../services/playlist-sevice');
+const playlistService = require('../services/playlist-service');
 
 class PlaylistController {
 
-    async create(req, res) {
+    async create(req, res, next) {
         try {
             const { name, image, iduser } = req.body;
             const response = await playlistService.create(name, image, iduser)

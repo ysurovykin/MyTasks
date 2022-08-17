@@ -2,7 +2,7 @@ const express = require('express');
 require('dotenv').config()
 const userRouter = require('./routes/user-routes');
 const playlistRouter = require('./routes/playlist-routes');
-// const taskRouter = require('./routes/task-routes');
+const taskRouter = require('./routes/task-routes');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const errorMiddleware = require('./middlewares/error-middleware')
@@ -18,7 +18,7 @@ app.use(cors({
 }));
 app.use('/api/user', userRouter);
 app.use('/api/playlist', playlistRouter);
-// app.use('/api/task', taskRouter);
+app.use('/api/task', taskRouter);
 app.use(errorMiddleware);
 
 app.listen(port, () => {
