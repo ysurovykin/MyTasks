@@ -1,6 +1,8 @@
 const express = require('express');
 require('dotenv').config()
-const router = require('./routes/user-routes');
+const userRouter = require('./routes/user-routes');
+const playlistRouter = require('./routes/playlist-routes');
+// const taskRouter = require('./routes/task-routes');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const errorMiddleware = require('./middlewares/error-middleware')
@@ -14,7 +16,9 @@ app.use(cors({
     credentials: true,
     origin: process.env.CLIENT_URL
 }));
-app.use('/api', router);
+app.use('/api/user', userRouter);
+app.use('/api/playlist', playlistRouter);
+// app.use('/api/task', taskRouter);
 app.use(errorMiddleware);
 
 app.listen(port, () => {
