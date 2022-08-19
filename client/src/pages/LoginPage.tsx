@@ -2,11 +2,15 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import MyInput from '../components/input';
 import '../components/logPage/logPage.scss'
+import { useAppDispatch, useAppSelector } from '../redux/hooks/redux';
+import { login } from '../redux/reducers/UserActionCreator';
 
 export function LoginPage() {
     const navigate = useNavigate()
+
     const [emailInput, setEmailInput] = useState('');
     const [passwordInput, setPasswordInput] = useState('');
+
     const setEmailValue = (e: any) => {
         setEmailInput(e.target.value);
     }
@@ -16,6 +20,20 @@ export function LoginPage() {
     const navigateToRegistration = () => {
         navigate("../registration", { replace: true });
     }
+
+    const dispatch = useAppDispatch();
+
+    const handleLogin = async (e: any) => {
+        e.preventDefault()
+        try {
+            await dispatch(login({ email: emailInput, password: passwordInput }))
+            navigate("../", {replace: true})
+        }
+        catch(error){
+
+        }
+    }
+
     return (
         <div className='log-page'>
             <div className='log-page__wave_left'>
@@ -37,7 +55,7 @@ export function LoginPage() {
                 <form>
                     <MyInput id={'log-page__email-input'} title={'Enter your email'} value={emailInput} setValue={setEmailValue} type={'text'} placeHolder={'james_bond_007@gmail.com'} />
                     <MyInput id={'log-page__password-input'} title={'Enter your password'} value={passwordInput} setValue={setPasswordValue} type={'password'} placeHolder={'******'} />
-                    <button type={'submit'} className='log-page__button' id='log-btn'>SIGN IN</button>
+                    <button type={'submit'} className='log-page__button' id='log-btn' onClick={handleLogin}>SIGN IN</button>
                 </form>
             </div>
             <div className='log-page__wave_right'>

@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import MyInput from '../components/input';
 import '../components/regPage/regPage.scss'
+import { useAppDispatch } from '../redux/hooks/redux';
+import { registration } from '../redux/reducers/UserActionCreator';
 
 export function RegistrationPage() {
     const navigate = useNavigate();
@@ -20,6 +22,19 @@ export function RegistrationPage() {
     const navigateToLogin = () => {
         navigate("../login", { replace: true });
     }
+    const dispatch = useAppDispatch();
+
+    const handleRegistration = async (e: any) => {
+        e.preventDefault()
+        try {
+            await dispatch(registration({ email: emailInput, password: passwordInput, name: nameInput }))
+            navigate("../", {replace: true})
+        }
+        catch(error){
+
+        }
+    }
+
     return (
         <div className='reg-page'>
             <div className='reg-page__wave_left'>
@@ -42,7 +57,7 @@ export function RegistrationPage() {
                     <MyInput id={'reg-page__name-input'} title={'Tell us your name'} value={nameInput} setValue={setNameValue} type={'text'} placeHolder={'James Bond'} />
                     <MyInput id={'reg-page__email-input'} title={'Enter your email'} value={emailInput} setValue={setEmailValue} type={'text'} placeHolder={'james_bond_007@gmail.com'} />
                     <MyInput id={'reg-page__password-input'} title={'Create a secret password'} value={passwordInput} setValue={setPasswordValue} type={'password'} placeHolder={'******'} />
-                    <button type={'submit'} className='reg-page__button' id='reg-btn'>SIGN UP</button>
+                    <button type={'submit'} className='reg-page__button' id='reg-btn' onClick={handleRegistration}>SIGN UP</button>
                 </form>
             </div>
             <div className='reg-page__wave_right'>

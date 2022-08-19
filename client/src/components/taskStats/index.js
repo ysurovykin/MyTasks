@@ -9,7 +9,6 @@ function TaskStats() {
                     <option value="all">All time</option>
                     <option value="year">Year</option>
                     <option value="month">Month</option>
-                    <option value="week">Week</option>
                 </select>
             </div>
             <div className='task-stats-wrapper__content'>

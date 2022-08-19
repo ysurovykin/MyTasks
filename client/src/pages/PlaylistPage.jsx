@@ -1,19 +1,21 @@
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import '../components/playlistPage/playlistPage.scss'
 import PlaylistsDay from '../components/playlist`sDay'
 import MobileFooter from '../components/mobileFooter'
 import CustomDatePicker from '../components/datePicker'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import CreateTaskForm from '../components/createTaskForm'
+import { playlistAPI } from '../redux/services/PlaylistService'
 
 
 export function PlaylistPage() {
 
+    const { id } = useParams();
     const navigate = useNavigate()
     const backToPlaylists = () => {
-        navigate('../main', { replace: true })
+        navigate('../', { replace: true })
     }
     const [isCreate, setIsCreate] = useState(false);
     const setIsCreateValue = () => {
@@ -21,19 +23,26 @@ export function PlaylistPage() {
     }
     const [startDate, setStartDate] = useState('');
 
+    const [playlist, setPlaylist] = useState({})
+    const { data } = playlistAPI.useFetchPlaylistQuery(id)
+
+    useEffect(() => {
+        setPlaylist(data);
+    })
+
     return (
         <div className="playlist-page-wrapper">
             <div className="playlist-page-wrapper__content">
                 <div className='playlist-page-wrapper__header'>
                     <div className='playlist-page-wrapper__head-wrapper'>
-                        <h1>Sportadasdas asdasd</h1>
+                        <h1>{playlist?.name}</h1>
                     </div>
                     <div className='playlist-page-wrapper__input-wrapper'>
                         <img src="./images/search.png" alt="search" />
                         <input type={'text'} placeholder={'Text to search...'} />
                     </div>
                     <div className='playlist-page-wrapper__calendar'>
-                        <img src="./images/calendar.png" alt="search" onClick={() => { setStartDate(''); console.log(startDate) }} />
+                        <img src="./images/calendar.png" alt="search" onClick={() => { setStartDate('');}} />
                         <DatePicker
                             customInput={<CustomDatePicker />}
                             selected={startDate}

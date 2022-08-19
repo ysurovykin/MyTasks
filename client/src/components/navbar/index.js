@@ -1,6 +1,9 @@
+import { useNavigate } from 'react-router-dom';
+import { useAppDispatch } from '../../redux/hooks/redux';
+import { logout } from '../../redux/reducers/UserActionCreator';
 import './navbar.scss'
 
-function navbar({ page, setPage }) {
+function Navbar({ page, setPage }) {
 
     const mode = true;
     const spanColor = () => {
@@ -33,7 +36,18 @@ function navbar({ page, setPage }) {
     const setPlaylists = () => {
         setPage('playlists');
     }
-
+    
+    const dispatch = useAppDispatch();
+    const navigate = useNavigate();
+    const handleLogout = async (e) =>{
+        e.preventDefault();
+        try {
+            await dispatch(logout());
+            navigate("../", { replace: true });
+        } catch (error) {
+            console.log(error.message)
+        } 
+    }
 
     return (
         <div className="navbar-wrapper">
@@ -66,6 +80,7 @@ function navbar({ page, setPage }) {
                         <path d="M11.1026 14.6325L6.84605 16.0513C5.66944 16.4435 5.08114 16.6396 5.08114 17C5.08114 17.3604 5.66944 17.5565 6.84605 17.9487L11.1026 19.3675L11.1026 19.3675C12.0337 19.6779 12.4992 19.8331 12.8331 20.1669C13.1669 20.5008 13.3221 20.9663 13.6325 21.8974L15.0513 26.1539C15.4435 27.3306 15.6396 27.9189 16 27.9189C16.3604 27.9189 16.5565 27.3306 16.9487 26.154L18.3675 21.8974C18.6779 20.9663 18.8331 20.5008 19.1669 20.1669C19.5008 19.8331 19.9663 19.6779 20.8974 19.3675L25.1539 17.9487C26.3306 17.5565 26.9189 17.3604 26.9189 17C26.9189 16.6396 26.3306 16.4435 25.154 16.0513L20.8974 14.6325C19.9663 14.3221 19.5008 14.1669 19.1669 13.8331C18.8331 13.4992 18.6779 13.0337 18.3675 12.1026L18.3675 12.1026L16.9487 7.84605C16.5565 6.66944 16.3604 6.08114 16 6.08114C15.6396 6.08114 15.4435 6.66944 15.0513 7.84605L13.6325 12.1026L13.6325 12.1026C13.3221 13.0337 13.1669 13.4992 12.8331 13.8331C12.4992 14.1669 12.0337 14.3221 11.1026 14.6325L11.1026 14.6325Z"
                             stroke="black" />
                     </svg>
+
                     :
                     <svg className='navbar-wrapper__pc-theme-changer' width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <circle cx="32" cy="32" r="10.1667" stroke="white" />
@@ -79,6 +94,11 @@ function navbar({ page, setPage }) {
                         <path d="M15.0295 15.0282L18.8008 18.7994" stroke="white" strokeLinecap="round" />
                     </svg>
                 }
+                <svg onClick={handleLogout} className='navbar-wrapper__pc-logout' width="48" height="48" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M42.9693 48.6923V58.2308C42.9693 59.4956 42.4779 60.7087 41.6034 61.6031C40.7289 62.4975 39.5428 63 38.306 63H5.66325C4.42648 63 3.24036 62.4975 2.36583 61.6031C1.49131 60.7087 1 59.4956 1 58.2308V5.76923C1 4.50435 1.49131 3.29128 2.36583 2.39688C3.24036 1.50247 4.42648 1 5.66325 1H38.306C39.5428 1 40.7289 1.50247 41.6034 2.39688C42.4779 3.29128 42.9693 4.50435 42.9693 5.76923V15.3077" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+                    <path d="M29.1752 32H62.0462" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+                    <path d="M53.4615 21.3438L63 32L53.4615 42.6562" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
                 <span className='mobile-span' style={{ backgroundColor: `${spanColor()}`, gridColumn: `${spanMobilePosition()}` }}></span>
                 <span className='pc-span' style={{ backgroundColor: `${spanColor()}`, gridRow: `${spanPcPosition()}` }}></span>
             </nav>
@@ -86,4 +106,4 @@ function navbar({ page, setPage }) {
     )
 }
 
-export default navbar
+export default Navbar
