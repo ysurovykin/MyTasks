@@ -4,8 +4,8 @@ class TaskController {
 
     async create(req, res, next) {
         try {
-            const { description, task_date, importance, iduser, playlist } = req.body;
-            const response = await taskService.create(description, task_date, importance, iduser, playlist)
+            const { description, task_date, importance, playlist } = req.body;
+            const response = await taskService.create(description, task_date, importance, playlist)
             res.json(response);
         } catch (error) {
             next(error);
@@ -32,10 +32,20 @@ class TaskController {
         }
     }
 
-    async getByPlaylist(req, res, next) {
+    async getDatesByPlaylist(req, res, next) {
         try {
             const { idplaylist } = req.params;
-            const tasks = await taskService.getByPlaylist(idplaylist);
+            const tasks = await taskService.getDatesByPlaylist(idplaylist);
+            return res.json(tasks);
+        } catch (error) {
+            next(error);
+        }
+    }
+    
+    async getByDateAndPlaylist(req, res, next) {
+        try {
+            const { idplaylist, date } = req.params;
+            const tasks = await taskService.getByDateAndPlaylist(idplaylist, date);
             return res.json(tasks);
         } catch (error) {
             next(error);
