@@ -3,8 +3,10 @@ import { taskAPI } from "../../redux/services/TaskService";
 
 function PlaylistsTask({ task, importanse, id, date }) {
 
+    const [editedImportanse, setEditedImportanse] = useState(importanse);
+
     const circleColor = () => {
-        switch (importanse) {
+        switch (editedImportanse) {
             case 'casual': return '#7CE393';
             case 'important': return '#F3D27B';
             case 'most': return '#E88282';
@@ -23,12 +25,13 @@ function PlaylistsTask({ task, importanse, id, date }) {
 
     const handleIsEditing = () => {
         setIsEditing(!isEditing);
+        setEditedImportanse(importanse);
         setEditTaskInput(task);
     }
 
     const handleEdit = async () => {
         try {
-            await updateTask({ description: editTaskInput, task_date: editTaskDateInput, importance: importanse, id: id })
+            await updateTask({ description: editTaskInput, task_date: editTaskDateInput, importance: editedImportanse, id: id })
             setIsEditing(!isEditing);
         } catch (e) { console.log(e.message) }
     }
@@ -44,6 +47,18 @@ function PlaylistsTask({ task, importanse, id, date }) {
     const handleDeleteTask = async () => {
         await deleteTask(id)
     }
+
+    const handleChangeImportanse = () => {
+        switch (editedImportanse) {
+            case 'casual': setEditedImportanse('important');
+                break;
+            case 'important': setEditedImportanse('most');
+                break;
+            case 'most': setEditedImportanse('casual');
+                break;
+        }
+    }
+
 
     return (
 
@@ -68,7 +83,7 @@ function PlaylistsTask({ task, importanse, id, date }) {
                 </div>
                 : <h2>{task}</h2>
             }
-            <div className='importanse-circle' style={{ backgroundColor: `${circleColor()}` }}></div>
+            <div className='importanse-circle' onClick={isEditing ? handleChangeImportanse : null} style={{ backgroundColor: `${circleColor()}` }}></div>
             {isEditing
                 ? <>
                     <div className='playlist-page-wrapper__img-wrapper' onClick={handleIsEditing}>
