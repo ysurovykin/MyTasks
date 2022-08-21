@@ -19,7 +19,7 @@ function PlaylistsDay({ date, id, searchedTask }) {
                 filtredTasks?.length
                     ? <div className='playlist-page-wrapper__task-wrapper'>
                         <h2 className='playlist-page-wrapper__date' > {date}</h2 >
-                        {filtredTasks?.map(taskData => <PlaylistsTask key={taskData.id} id={taskData.id} task={taskData.description} importanse={taskData.importance} />)}
+                        {filtredTasks?.map(taskData => <PlaylistsTask key={taskData.id} id={taskData.id} date={date} task={taskData.description} importanse={taskData.importance} />)}
                     </div >
                     : null
             }

@@ -9,8 +9,6 @@ function CreateTaskForm({ setIsCreateValue, playlistName }) {
     const [date, setDate] = useState(new Date().toLocaleDateString());
     const [createTask, { }] = taskAPI.useCreateTaskMutation();
 
-    console.log(date);
-
     const setPlaylistValue = (e) => {
         setPlaylistInput(e.target.value);
     }

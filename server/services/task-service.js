@@ -17,17 +17,13 @@ class TaskService {
         const taskDto = new TaskDto(newTask.rows[0]);
         return taskDto;
     }
-    async update(description, task_date, importance, playlist, id) {
+    async update(description, task_date, importance, id) {
         const task = await db.query('SELECT * FROM tasks WHERE id = $1', [id]);
         if (!task.rowCount) {
             throw ApiError.BadRequestError('Task is not exist');
         }
-        const existedPlaylist = await db.query('SELECT * FROM playlists WHERE name = $1', [playlist]);
-        if (!existedPlaylist.rowCount) {
-            throw ApiError.BadRequestError('Playlist is not exist');
-        }
-        const updatedTask = await db.query('UPDATE tasks SET description = $1, task_date = $2, importance = $3, idplaylist = $4 WHERE id = $5 RETURNING *',
-            [description, task_date, importance, existedPlaylist.rows[0].id, id]);
+        const updatedTask = await db.query('UPDATE tasks SET description = $1, task_date = $2, importance = $3 WHERE id = $4 RETURNING *',
+            [description, task_date, importance, id]);
         const taskDto = new TaskDto(updatedTask.rows[0]);
 
         return taskDto

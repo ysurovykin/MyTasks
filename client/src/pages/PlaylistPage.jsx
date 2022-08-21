@@ -51,7 +51,7 @@ export function PlaylistPage() {
         setDates(taskData?.map(({ response }) => response).sort(dateSort))
     }, [taskData])
     useEffect(() => {
-        setDates(taskData?.map(({ response }) => response).filter(dateSearch))
+        setDates(taskData?.map(({ response }) => response).filter(dateSearch).sort(dateSort))
     }, [startDate])
 
     return (

@@ -14,8 +14,8 @@ class TaskController {
 
     async update(req, res, next) {
         try {
-            const { description, task_date, importance, playlist, id } = req.body;
-            const taskData = await taskService.update(description, task_date, importance, playlist, id);
+            const { description, task_date, importance, id } = req.body;
+            const taskData = await taskService.update(description, task_date, importance, id);
             return res.json(taskData);
         } catch (error) {
             next(error);

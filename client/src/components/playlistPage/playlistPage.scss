@@ -265,27 +265,33 @@
                 }
             }
         }
-        .playlist-page-wrapper__empty-playlist{
+
+        .playlist-page-wrapper__empty-playlist {
             padding-top: 60px;
             align-self: flex-start;
             justify-self: center;
             font-size: 60px;
+
             @media (max-width: 900px) {
                 font-size: 50px;
                 padding-top: 50px;
             }
+
             @media (max-width: 900px) {
                 font-size: 40px;
                 padding-top: 40px;
             }
+
             @media (max-width: 560px) {
                 font-size: 30px;
                 padding-top: 30px;
             }
+
             @media (max-width: 400px) {
                 font-size: 25px;
             }
         }
+
         .playlist-page-wrapper__tasks {
             display: grid;
             row-gap: 40px;
@@ -336,6 +342,7 @@
                         width: 80%;
                     }
 
+
                     h2 {
                         font-size: 25px;
                         font-weight: 500;
@@ -345,6 +352,56 @@
                             font-size: 20px;
                         }
 
+                    }
+
+                    .playlist-page-wrapper__edit-wrapper {
+                        width: 95%;
+                        display: grid;
+                        grid-template-rows: 1fr 1fr;
+                        align-items: center;
+
+                        @media (max-width: 540px) {
+                            display: flex;
+                            flex-direction: column;
+                            align-items: flex-start;
+                        }
+
+                        .playlist-page-wrapper__edit-task-input {
+                            font-size: 25px;
+                            font-weight: 500;
+                            margin: 9px 0px;
+                            outline: none;
+                            border: none;
+                            border-bottom: 1px solid black;
+
+                            @media (max-width: 1000px) {
+                                font-size: 20px;
+                            }
+
+                            @media (max-width: 540px) {
+                                width: 90%;
+                            }
+                        }
+
+                        .playlist-page-wrapper__edit-task-date-input {
+                            &::-webkit-calendar-picker-indicator {
+                                background: url('../../../public/images/calendar.png');
+                                background-size: contain;
+                                width: 30px;
+                                height: 30px;
+                            }
+
+                            justify-self: end;
+                            font-size: 25px;
+                            font-weight: 500;
+                            margin: 9px 0px;
+                            outline: none;
+                            border: none;
+
+                            @media (max-width: 1000px) {
+                                font-size: 20px;
+                            }
+                        }
                     }
 
                     .importanse-circle {
@@ -430,7 +487,7 @@
             z-index: -1;
             background: #03A900;
             filter: blur(100px);
-            
+
         }
 
         .playlist-page-wrapper__bg-circle-yellow {
@@ -446,5 +503,5 @@
         }
     }
 
-   
+
 }
