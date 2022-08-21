@@ -1,16 +1,29 @@
-import { useParams } from "react-router-dom";
+
+import { useEffect, useState } from "react";
 import { taskAPI } from "../../redux/services/TaskService";
 import PlaylistsTask from "../playlist`sTask"
 
-function PlaylistsDay({ date, id }) {
+function PlaylistsDay({ date, id, searchedTask }) {
 
     const { data: tasks } = taskAPI.useFetchTasksByPlaylistAndDateQuery({ idplaylist: id, date });
+    const [filtredTasks, setFiltredTasks] = useState([]);
+
+
+    useEffect(() => {
+        setFiltredTasks(tasks?.filter(searchText => searchText.description.toLowerCase().includes(searchedTask.toLowerCase())));
+    }, [searchedTask, tasks])
 
     return (
-        <div className='playlist-page-wrapper__task-wrapper'>
-            <h2 className='playlist-page-wrapper__date'>{date}</h2>
-            {tasks?.map(taskData => <PlaylistsTask key={taskData.id} task={taskData.description} importanse={taskData.importance} />)}
-        </div>
+        <>
+            {
+                filtredTasks?.length
+                    ? <div className='playlist-page-wrapper__task-wrapper'>
+                        <h2 className='playlist-page-wrapper__date' > {date}</h2 >
+                        {filtredTasks?.map(taskData => <PlaylistsTask key={taskData.id} id={taskData.id} task={taskData.description} importanse={taskData.importance} />)}
+                    </div >
+                    : null
+            }
+        </>
     )
 }
 

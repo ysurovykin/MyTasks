@@ -1,4 +1,6 @@
-function PlaylistsTask({task, importanse}) {
+import { taskAPI } from "../../redux/services/TaskService";
+
+function PlaylistsTask({task, importanse, id}) {
 
     const circleColor = () => {
         switch(importanse){
@@ -8,12 +10,18 @@ function PlaylistsTask({task, importanse}) {
         }
     }
 
+    const [deleteTask, { }] = taskAPI.useDeleteTaskMutation();
+
+    const handleDeleteTask = () => {
+        deleteTask(id)
+    }
+
     return (
 
         <div className='playlist-page-wrapper__task'>
             <h2>{task}</h2>
             <div className='importanse-circle' style={{ backgroundColor: `${circleColor()}` }}></div>
-            <div className='playlist-page-wrapper__img-wrapper'>
+            <div className='playlist-page-wrapper__img-wrapper' onClick={handleDeleteTask}>
                 <img src="./images/trash-bin.png" alt="trash-bin" />
             </div>
             <div className='playlist-page-wrapper__img-wrapper'>

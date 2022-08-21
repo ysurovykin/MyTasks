@@ -43,8 +43,8 @@ class TaskService {
         return taskDto
     }
     async getDatesByPlaylist(idplaylist) {
-        const newDate = new Date();
-        const task_dates = await db.query('SELECT DISTINCT SUBSTRING(to_char(task_date, \'DD.MM.YYYY\')::text, 1, 10) as response FROM tasks WHERE idplaylist = $1 AND task_date > $2 ORDER BY response ASC', [idplaylist, newDate]);
+        const newDate = new Date().toISOString();
+        const task_dates = await db.query('SELECT DISTINCT SUBSTRING(to_char(task_date, \'DD.MM.YYYY\')::text, 1, 10) as response FROM tasks WHERE idplaylist = $1 AND task_date >= $2 ORDER BY response ASC', [idplaylist, newDate.slice(0, 10)]);
         return task_dates.rows
     }
     async getByDateAndPlaylist(idplaylist, date) {

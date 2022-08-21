@@ -27,6 +27,18 @@ export function PlaylistPage() {
     const { data: playlistData } = playlistAPI.useFetchPlaylistQuery(id)
     const { data: taskData } = taskAPI.useFetchDatesByPlaylistQuery(id)
 
+    const dateSearch = (date) => {
+        if (startDate === '') { return true }
+        const searchedDate = new Date(startDate);
+        const dateSplit = date.split('.');
+        const dateSplitDate = new Date(dateSplit[2], dateSplit[1] - 1, dateSplit[0])
+        return searchedDate.getTime() === dateSplitDate.getTime();
+    }
+
+    const [searchedTask, isSearchedTask] = useState('');
+    const handleSearchedTaskChange = (e) => {
+        isSearchedTask(e.target.value);
+    }
     const dateSort = (a, b) => {
         const aSplit = a.split('.');
         const bSplit = b.split('.');
@@ -37,8 +49,11 @@ export function PlaylistPage() {
 
     useEffect(() => {
         setDates(taskData?.map(({ response }) => response).sort(dateSort))
-        console.log(dates)
     }, [taskData])
+    useEffect(() => {
+        setDates(taskData?.map(({ response }) => response).filter(dateSearch))
+    }, [startDate])
+
     return (
         <div className="playlist-page-wrapper">
             <div className="playlist-page-wrapper__content">
@@ -48,7 +63,11 @@ export function PlaylistPage() {
                     </div>
                     <div className='playlist-page-wrapper__input-wrapper'>
                         <img src="./images/search.png" alt="search" />
-                        <input type={'text'} placeholder={'Text to search...'} />
+                        <input
+                            type={'text'}
+                            placeholder={'Text to search...'}
+                            value={searchedTask}
+                            onChange={handleSearchedTaskChange} />
                     </div>
                     <div className='playlist-page-wrapper__calendar'>
                         <img src="./images/calendar.png" alt="search" onClick={() => { setStartDate(''); }} />
@@ -70,9 +89,12 @@ export function PlaylistPage() {
                 <div className='playlist-page-wrapper__create-btn'>
                     <h2 onClick={setIsCreateValue}>Create new task</h2>
                 </div>
-                <div className='playlist-page-wrapper__tasks'>
-                    {dates?.map(date => <PlaylistsDay key={date} date={date} id={id}/>)}
-                </div>
+                {dates?.length ?
+                    <div className='playlist-page-wrapper__tasks'>
+                        {dates?.map(date => <PlaylistsDay key={date} date={date} id={id} searchedTask={searchedTask} />)}
+                    </div>
+                    : <h2 className='playlist-page-wrapper__empty-playlist'>Playlist {` \'${playlistData?.name}\' `} is empty</h2>
+                }
                 <div className='playlist-mobile-whitespace'></div>
             </div>
             <div className='playlist-page-wrapper__bg'>
@@ -82,7 +104,7 @@ export function PlaylistPage() {
                 <div className='playlist-page-wrapper__bg-circle-yellow'></div>
             </div>
             {isCreate
-                ? <CreateTaskForm setIsCreateValue={setIsCreateValue} playlistName={'Sport'} />
+                ? <CreateTaskForm setIsCreateValue={setIsCreateValue} playlistName={playlistData?.name} />
                 : null}
             <MobileFooter />
         </div>

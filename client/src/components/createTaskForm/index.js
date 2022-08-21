@@ -6,8 +6,10 @@ function CreateTaskForm({ setIsCreateValue, playlistName }) {
     const [playlistInput, setPlaylistInput] = useState(`${playlistName ? playlistName : ''}`)
     const [taskInput, setTaskInput] = useState('');
     const [importanse, setImportanse] = useState('casual');
-    const [date, setDate] = useState('');
+    const [date, setDate] = useState(new Date().toLocaleDateString());
     const [createTask, { }] = taskAPI.useCreateTaskMutation();
+
+    console.log(date);
 
     const setPlaylistValue = (e) => {
         setPlaylistInput(e.target.value);
@@ -19,7 +21,7 @@ function CreateTaskForm({ setIsCreateValue, playlistName }) {
     const cancelCreate = () => {
         setIsCreateValue();
         setTaskInput('');
-        setPlaylistInput('Sport')
+        setPlaylistInput(playlistName)
 
     }
     const handleSetDate = (e) => {
