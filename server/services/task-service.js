@@ -52,16 +52,23 @@ class TaskService {
         return task.rows
     }
     async setComplete(id) {
-        console.log('-------: ' + id)
         const task = await db.query('SELECT * FROM tasks WHERE id = $1', [id]);
+        const hour = new Date().getHours();
         if (!task.rowCount) {
             throw ApiError.BadRequestError('Task is not exist');
         }
-        const updatedTask = await db.query('UPDATE tasks SET iscomplete = $1 WHERE id = $2 RETURNING *',
-            [!(task.rows[0].iscomplete), id]);
-        const taskDto = new TaskDto(updatedTask.rows[0]);
-
-        return taskDto
+        if (task.rows[0].iscomplete) {
+            const updatedTask = await db.query('UPDATE tasks SET iscomplete = $1, complete_hour = $2 WHERE id = $3 RETURNING *',
+                [false, null, id]);
+            const taskDto = new TaskDto(updatedTask.rows[0]);
+            return taskDto
+        }
+        else {
+            const updatedTask = await db.query('UPDATE tasks SET iscomplete = $1, complete_hour = $2 WHERE id = $3 RETURNING *',
+                [true, hour, id]);
+            const taskDto = new TaskDto(updatedTask.rows[0]);
+            return taskDto
+        }
     }
     async getCompleted(iduser, period) {
         const currentDate = new Date();

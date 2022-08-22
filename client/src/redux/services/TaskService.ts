@@ -56,5 +56,29 @@ export const taskAPI = createApi({
             }),
             invalidatesTags: ['UpdateTask']
         }),
+        getCompleted: builder.query<number, {iduser: number, period: string}>({
+            query: (data: {iduser: number, period: string}) => ({
+                url: `getCompleted/${data.iduser}/${data.period}`
+            }),
+            providesTags: ['DeleteTask', 'CreateTask', 'UpdateTask']
+        }),
+        getFailed: builder.query<number, {iduser: number, period: string}>({
+            query: (data: {iduser: number, period: string}) => ({
+                url: `getFailed/${data.iduser}/${data.period}`
+            }),
+            providesTags: ['DeleteTask', 'CreateTask', 'UpdateTask']
+        }),
+        getPlaned: builder.query<number, {iduser: number, period: string}>({
+            query: (data: {iduser: number, period: string}) => ({
+                url: `getPlaned/${data.iduser}/${data.period}`
+            }),
+            providesTags: ['DeleteTask', 'CreateTask', 'UpdateTask']
+        }),
+        getDaysScheduled: builder.query<number, {iduser: number, period: string}>({
+            query: (data: {iduser: number, period: string}) => ({
+                url: `getDaysScheduled/${data.iduser}/${data.period}`
+            }),
+            providesTags: ['DeleteTask', 'CreateTask', 'UpdateTask']
+        }),
     }),
 })

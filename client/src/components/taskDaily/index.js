@@ -32,10 +32,12 @@ function TaskDaily() {
     const [casualTasks, setCasualTasks] = useState([])
     const [tasksComplete, setTasksComplete] = useState()
 
+    const tasksSort = (a, b) => (a.iscomplete && !b.iscomplete) ? 1 : -1
+
     useEffect(() => {
-        setMostTasks(taskData?.filter(a => a.importance === 'most'))
-        setImportantTasks(taskData?.filter(a => a.importance === 'important'))
-        setCasualTasks(taskData?.filter(a => a.importance === 'casual'))
+        setMostTasks(taskData?.filter(a => a.importance === 'most').sort(tasksSort))
+        setImportantTasks(taskData?.filter(a => a.importance === 'important').sort(tasksSort))
+        setCasualTasks(taskData?.filter(a => a.importance === 'casual').sort(tasksSort))
         setTasksComplete(taskData?.filter(a => a.iscomplete === true).length)
     }, [taskData])
 
@@ -53,7 +55,7 @@ function TaskDaily() {
                     </div>
                     {isMostImportantTasks
                         ? <div className='task-daily-wrapper__most-important-tasks'>
-                             {
+                            {
                                 mostTasks?.length
                                     ? mostTasks?.map(task => <DailyTask key={task.id} id={task.id} isComplete={task.iscomplete} description={task.description} />)
                                     : <h2 className='task-daily-wrapper__empty'>You have not planned any most important task for today</h2>
@@ -87,7 +89,7 @@ function TaskDaily() {
                         ? <div className='task-daily-wrapper__casual-tasks'>
                             {
                                 casualTasks?.length
-                                    ? casualTasks?.map(task => <DailyTask  key={task.id} id={task.id} isComplete={task.iscomplete} description={task.description} />)
+                                    ? casualTasks?.map(task => <DailyTask key={task.id} id={task.id} isComplete={task.iscomplete} description={task.description} />)
                                     : <h2 className='task-daily-wrapper__empty'>You have not planned any casual task for today</h2>
                             }
                         </div>
