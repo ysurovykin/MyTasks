@@ -50,3 +50,13 @@ export const refresh = createAsyncThunk(
         }
     }
 )
+export const setPreviousPage = createAsyncThunk(
+    'user/setPreviousPage',
+    async (page: string, thunkApi) => {
+        try {
+            return page;
+        } catch (error: any) {
+            return thunkApi.rejectWithValue(error.message);
+        }
+    }
+)

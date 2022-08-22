@@ -30,7 +30,7 @@ export function LoginPage() {
             navigate("../", {replace: true})
         }
         catch(error){
-
+            
         }
     }
 

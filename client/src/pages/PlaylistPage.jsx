@@ -9,13 +9,19 @@ import { useEffect, useState } from 'react'
 import CreateTaskForm from '../components/createTaskForm'
 import { playlistAPI } from '../redux/services/PlaylistService'
 import { taskAPI } from '../redux/services/TaskService'
+import { setPreviousPage } from '../redux/reducers/UserActionCreator'
+import { useAppDispatch } from '../redux/hooks/redux'
 
 
 export function PlaylistPage() {
 
     const { id } = useParams();
+
+    const dispatch = useAppDispatch();
+
     const navigate = useNavigate()
-    const backToPlaylists = () => {
+    const backToPlaylists = async () => {
+        await dispatch(setPreviousPage('playlists'))
         navigate('../', { replace: true })
     }
     const [isCreate, setIsCreate] = useState(false);
@@ -24,6 +30,8 @@ export function PlaylistPage() {
     }
     const [startDate, setStartDate] = useState('');
     const [dates, setDates] = useState([]);
+    const [isAnyDates, setIsAnyDates] = useState();
+    const [isTasksAtDate, setIsTasksAtDate] = useState();
     const { data: playlistData } = playlistAPI.useFetchPlaylistQuery(id)
     const { data: taskData } = taskAPI.useFetchDatesByPlaylistQuery(id)
 
@@ -46,14 +54,20 @@ export function PlaylistPage() {
         const bDate = new Date(bSplit[2], bSplit[1], bSplit[0])
         return aDate.getTime() - bDate.getTime()
     }
-
+    const dateBuilder = (date) => {
+        const dateData = new Date(date)
+        return dateData.toLocaleDateString()
+    }
     useEffect(() => {
         setDates(taskData?.map(({ response }) => response).sort(dateSort))
+        setIsAnyDates(!!taskData?.length)
     }, [taskData])
     useEffect(() => {
         setDates(taskData?.map(({ response }) => response).filter(dateSearch).sort(dateSort))
     }, [startDate])
-
+    useEffect(() => {
+        setIsTasksAtDate(!!dates?.length)
+    }, [dates])
     return (
         <div className="playlist-page-wrapper">
             <div className="playlist-page-wrapper__content">
@@ -89,24 +103,26 @@ export function PlaylistPage() {
                 <div className='playlist-page-wrapper__create-btn'>
                     <h2 onClick={setIsCreateValue}>Create new task</h2>
                 </div>
-                {dates?.length ?
-                    <div className='playlist-page-wrapper__tasks'>
-                        {dates?.map(date => <PlaylistsDay key={date} date={date} id={id} searchedTask={searchedTask} />)}
-                    </div>
+                {isAnyDates
+                    ? <>
+                        {!isTasksAtDate
+                            ? <h2 className='playlist-page-wrapper__empty-playlist'>No plans at {`${dateBuilder(startDate)}`}</h2>
+                            : <div className='playlist-page-wrapper__tasks'>
+                                {dates?.map(date => <PlaylistsDay key={date} date={date} id={id} searchedTask={searchedTask} />)}
+                            </div>}
+                    </>
                     : <h2 className='playlist-page-wrapper__empty-playlist'>Playlist {` \'${playlistData?.name}\' `} is empty</h2>
                 }
                 <div className='playlist-mobile-whitespace'></div>
             </div>
-            <div className='playlist-page-wrapper__bg'>
-                <div className='playlist-page-wrapper__bg-fone'></div>
-                <div className='playlist-page-wrapper__bg-circle-red'></div>
-                <div className='playlist-page-wrapper__bg-circle-green'></div>
-                <div className='playlist-page-wrapper__bg-circle-yellow'></div>
+            <div className='playlist-page-wrapper__bg' style={{ background: `${playlistData?.image}` }}>
             </div>
-            {isCreate
-                ? <CreateTaskForm setIsCreateValue={setIsCreateValue} playlistName={playlistData?.name} />
-                : null}
+            {
+                isCreate
+                    ? <CreateTaskForm setIsCreateValue={setIsCreateValue} playlistName={playlistData?.name} />
+                    : null
+            }
             <MobileFooter />
-        </div>
+        </div >
     )
 }

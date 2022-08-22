@@ -1,11 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IUserState } from "../models/IUserState";
 import { IUser } from "../models/IUser";
-import { login, logout, refresh, registration } from "./UserActionCreator";
+import { login, logout, refresh, registration, setPreviousPage } from "./UserActionCreator";
 import { IUserData } from "../models/IUserData";
 
 const initialState: IUserState = {
     userData: {} as IUser,
+    currentPage: 'stats',
     isLoading: false,
     error: '',
 }
@@ -27,6 +28,7 @@ export const userSlice = createSlice({
             state.isLoading = false;
             state.error = action.payload;
         },
+
         [registration.pending.type]: (state) => {
             state.isLoading = true;
         },
@@ -39,6 +41,7 @@ export const userSlice = createSlice({
             state.isLoading = false;
             state.error = action.payload;
         },
+
         [refresh.pending.type]: (state) => {
             state.isLoading = true;
         },
@@ -51,6 +54,7 @@ export const userSlice = createSlice({
             state.isLoading = false;
             state.error = action.payload;
         },
+
         [logout.pending.type]: (state) => {
             state.isLoading = true;
         },
@@ -60,6 +64,19 @@ export const userSlice = createSlice({
             state.error = '';
         },
         [logout.rejected.type]: (state, action: PayloadAction<string>) => {
+            state.isLoading = false;
+            state.error = action.payload;
+        },
+
+        [setPreviousPage.pending.type]: (state) => {
+            state.isLoading = true;
+        },
+        [setPreviousPage.fulfilled.type]: (state, action: PayloadAction<string>) => {
+            state.isLoading = false;
+            state.currentPage = action.payload;
+            state.error = '';
+        },
+        [setPreviousPage.rejected.type]: (state, action: PayloadAction<string>) => {
             state.isLoading = false;
             state.error = action.payload;
         }

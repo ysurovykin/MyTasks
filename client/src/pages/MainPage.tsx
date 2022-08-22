@@ -1,15 +1,16 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Navbar from '../components/navbar'
 import MobileFooter from '../components/mobileFooter'
 import TaskDaily from '../components/taskDaily';
 import TaskStats from '../components/taskStats';
 import TaskPlaylist from '../components/taskPlaylist';
 import '../components/mainPage/mainPage.scss'
+import {useAppSelector } from '../redux/hooks/redux';
 
 export function MainPage() {
 
-    const [page, setPage] = useState('stats');
-
+    const { currentPage } = useAppSelector(state => state.userSlice)
+    const [page, setPage] = useState(currentPage);
     const switchPages = () => {
         switch (page) {
             case 'stats': return <TaskStats />
