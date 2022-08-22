@@ -5,4 +5,5 @@ export interface ITask{
     importance: string;
     iscomplete: boolean;
     idplaylist: number;
+    iduser: number;
 }

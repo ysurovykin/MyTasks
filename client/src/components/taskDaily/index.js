@@ -1,5 +1,6 @@
-import { useState } from 'react'
-import CreateTaskForm from '../createTaskForm';
+import { useEffect, useState } from 'react'
+import { useAppSelector } from '../../redux/hooks/redux';
+import { taskAPI } from '../../redux/services/TaskService';
 import DailyTask from '../dailyTask';
 import './taskDaily.scss'
 
@@ -8,11 +9,11 @@ function TaskDaily() {
     const [isMostImportantTasks, setIsMostImportantTasks] = useState(false);
     const [isImportantTasks, setIsImportantTasks] = useState(false);
     const [isCasualTasks, setIsCasualTasks] = useState(false);
-    const [isCreate, setIsCreate] = useState(false);
-    
-    const setIsCreateValue = () => {
-        setIsCreate(!isCreate);
-    }
+    const today = new Date().toLocaleDateString();
+    const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    const dayOfTheWeek = new Date();
+    const todayDayOfTheWeek = weekdays[dayOfTheWeek.getDay()];
+
     const onClickMostImportantTasks = () => {
         setIsMostImportantTasks(!isMostImportantTasks);
     }
@@ -23,11 +24,26 @@ function TaskDaily() {
         setIsCasualTasks(!isCasualTasks);
     }
 
+    const { userData } = useAppSelector(state => state.userSlice)
+    const { data: taskData } = taskAPI.useFetchTasksByDateQuery({ iduser: userData.id, date: today })
+
+    const [mostTasks, setMostTasks] = useState([])
+    const [importantTasks, setImportantTasks] = useState([])
+    const [casualTasks, setCasualTasks] = useState([])
+    const [tasksComplete, setTasksComplete] = useState()
+
+    useEffect(() => {
+        setMostTasks(taskData?.filter(a => a.importance === 'most'))
+        setImportantTasks(taskData?.filter(a => a.importance === 'important'))
+        setCasualTasks(taskData?.filter(a => a.importance === 'casual'))
+        setTasksComplete(taskData?.filter(a => a.iscomplete === true).length)
+    }, [taskData])
+
     return (
         <div className='task-daily-wrapper'>
-            <h1 className='task-daily-wrapper__header_pc'>Monday<br />01.08.2022</h1>
-            <h1 className='task-daily-wrapper__header_mobile'>Monday 01.08.2022</h1>
-            <h1 className='task-daily-wrapper__progress'>Today`s proggress<br />2/6 tasks</h1>
+            <h1 className='task-daily-wrapper__header_pc'>{todayDayOfTheWeek}<br />{today}</h1>
+            <h1 className='task-daily-wrapper__header_mobile'>{todayDayOfTheWeek + ' ' + today}</h1>
+            <h1 className='task-daily-wrapper__progress'>Today`s proggress<br />{tasksComplete}/{taskData?.length} tasks</h1>
             <div className='task-daily-wrapper__tasks-wrapper'>
                 <div className='task-daily-wrapper__most-important-tasks-wrapper'>
                     <div className='task-daily-wrapper__most-important-tasks-header'>
@@ -37,11 +53,11 @@ function TaskDaily() {
                     </div>
                     {isMostImportantTasks
                         ? <div className='task-daily-wrapper__most-important-tasks'>
-                            <DailyTask isComplete={false} />
-                            <DailyTask isComplete={false} />
-                            <div onClick={setIsCreateValue} className='task-daily-wrapper__plus-img'>
-                                <img src='./images/plus-circle.png' alt='most-plus' />
-                            </div>
+                             {
+                                mostTasks?.length
+                                    ? mostTasks?.map(task => <DailyTask key={task.id} id={task.id} isComplete={task.iscomplete} description={task.description} />)
+                                    : <h2 className='task-daily-wrapper__empty'>You have not planned any most important task for today</h2>
+                            }
                         </div>
                         : null}
                 </div>
@@ -53,13 +69,11 @@ function TaskDaily() {
                     </div>
                     {isImportantTasks
                         ? <div className='task-daily-wrapper__important-tasks'>
-                            <DailyTask isComplete={true} />
-                            <DailyTask isComplete={true} />
-                            <DailyTask isComplete={false} />
-                            <DailyTask isComplete={true} />
-                            <div onClick={setIsCreateValue} className='task-daily-wrapper__plus-img'>
-                                <img src='./images/plus-circle.png' alt='important-plus' />
-                            </div>
+                            {
+                                importantTasks?.length
+                                    ? importantTasks?.map(task => <DailyTask key={task.id} id={task.id} isComplete={task.iscomplete} description={task.description} />)
+                                    : <h2 className='task-daily-wrapper__empty'>You have not planned any important task for today</h2>
+                            }
                         </div>
                         : null}
                 </div>
@@ -71,16 +85,15 @@ function TaskDaily() {
                     </div>
                     {isCasualTasks
                         ? <div className='task-daily-wrapper__casual-tasks'>
-                            <div onClick={setIsCreateValue} className='task-daily-wrapper__plus-img'>
-                                <img src='./images/plus-circle.png' alt='casual-plus' />
-                            </div>
+                            {
+                                casualTasks?.length
+                                    ? casualTasks?.map(task => <DailyTask  key={task.id} id={task.id} isComplete={task.iscomplete} description={task.description} />)
+                                    : <h2 className='task-daily-wrapper__empty'>You have not planned any casual task for today</h2>
+                            }
                         </div>
                         : null}
                 </div>
             </div>
-            {isCreate
-                ? <CreateTaskForm setIsCreateValue={setIsCreateValue}/>
-                : null}
         </div>
     )
 }

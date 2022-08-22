@@ -4,8 +4,8 @@ class TaskController {
 
     async create(req, res, next) {
         try {
-            const { description, task_date, importance, playlist } = req.body;
-            const response = await taskService.create(description, task_date, importance, playlist)
+            const { description, task_date, importance, playlist, iduser } = req.body;
+            const response = await taskService.create(description, task_date, importance, playlist, iduser)
             res.json(response);
         } catch (error) {
             next(error);
@@ -53,8 +53,8 @@ class TaskController {
     }
     async getByDate(req, res, next) {
         try {
-            const { date } = req.params;
-            const task = await taskService.getByDate(date);
+            const { iduser, date } = req.params;
+            const task = await taskService.getByDate(iduser, date);
             return res.json(task);
         } catch (error) {
             next(error);
@@ -99,6 +99,7 @@ class TaskController {
     async setComplete(req, res, next) {
         try {
             const { id } = req.body;
+            console.log('id: ' + id)
             const task = await taskService.setComplete(id);
             return res.json(task);
         } catch (error) {

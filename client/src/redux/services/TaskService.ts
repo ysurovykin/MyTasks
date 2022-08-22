@@ -11,7 +11,7 @@ export const taskAPI = createApi({
             query: (idplaylist: number) => ({
                 url: 'getDatesByPlaylist/' + idplaylist
             }),
-            providesTags: ['CreateTask', 'UpdateTask']
+            providesTags: ['DeleteTask', 'CreateTask', 'UpdateTask']
         }),
         fetchTasksByPlaylistAndDate: builder.query<ITask[], { idplaylist: number, date: Date }>({
             query: (params: { idplaylist: number, date: Date }) => ({
@@ -19,8 +19,14 @@ export const taskAPI = createApi({
             }),
             providesTags: ['DeleteTask', 'CreateTask', 'UpdateTask']
         }),
-        createTask: builder.mutation<ITask, { description: string, task_date: Date, importance: string, iscomplete: boolean, playlist: string }>({
-            query: (task: { description: string, task_date: Date, importance: string, iscomplete: boolean, playlist: string }) => ({
+        fetchTasksByDate: builder.query<ITask[], {iduser: number, date: Date}>({
+            query: (tasks: {iduser: number, date: Date}) => ({
+                url: `getByDate/${tasks.iduser}/${tasks.date}`
+            }),
+            providesTags: ['DeleteTask', 'CreateTask', 'UpdateTask']
+        }),
+        createTask: builder.mutation<ITask, { description: string, task_date: Date, importance: string, iscomplete: boolean, playlist: string, iduser: number }>({
+            query: (task: { description: string, task_date: Date, importance: string, iscomplete: boolean, playlist: string, iduser: number }) => ({
                 url: 'create',
                 method: 'POST',
                 body: task
@@ -39,6 +45,14 @@ export const taskAPI = createApi({
                 url: `update`,
                 method: 'PUT',
                 body: task
+            }),
+            invalidatesTags: ['UpdateTask']
+        }),
+        completeTask: builder.mutation<ITask, {id: number}>({
+            query: (taskid: {id: number}) => ({
+                url: `complete`,
+                method: 'PUT',
+                body: taskid
             }),
             invalidatesTags: ['UpdateTask']
         }),

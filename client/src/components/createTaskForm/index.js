@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useAppSelector } from "../../redux/hooks/redux";
 import { taskAPI } from "../../redux/services/TaskService";
 import './createTaskForm.scss'
 
@@ -8,6 +9,7 @@ function CreateTaskForm({ setIsCreateValue, playlistName }) {
     const [importanse, setImportanse] = useState('casual');
     const [date, setDate] = useState(new Date().toLocaleDateString());
     const [createTask, { }] = taskAPI.useCreateTaskMutation();
+    const { userData } = useAppSelector(state => state.userSlice)
 
     const setPlaylistValue = (e) => {
         setPlaylistInput(e.target.value);
@@ -28,7 +30,7 @@ function CreateTaskForm({ setIsCreateValue, playlistName }) {
     const handleCreateTask = (e) => {
         e.preventDefault();
         try {
-            createTask({ description: taskInput, playlist: playlistInput, importance: importanse, iscomplete: false, task_date: date })
+            createTask({ description: taskInput, playlist: playlistInput, importance: importanse, iscomplete: false, task_date: date, iduser: userData.id})
             setIsCreateValue();
         } catch (e) {
             console.log(e.message)

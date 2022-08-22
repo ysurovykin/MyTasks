@@ -3,7 +3,7 @@ const ApiError = require('../errors/api-errors');
 const db = require('../db')
 
 class TaskService {
-    async create(description, task_date, importance, playlist) {
+    async create(description, task_date, importance, playlist, iduser) {
         const existedTask = await db.query('SELECT * FROM tasks WHERE description = $1 and task_date = $2 ', [description, task_date]);
         if (existedTask.rowCount) {
             throw ApiError.BadRequestError('Such task at this date already exist');
@@ -12,8 +12,8 @@ class TaskService {
         if (!existedPlaylist.rowCount) {
             throw ApiError.BadRequestError('Playlist is not exist');
         }
-        const newTask = await db.query('INSERT INTO tasks (description, task_date, importance, iscomplete, idplaylist) values ($1, $2, $3, $4, $5) RETURNING *',
-            [description, task_date, importance, false, existedPlaylist.rows[0].id]);
+        const newTask = await db.query('INSERT INTO tasks (description, task_date, importance, iscomplete, iduser, idplaylist) values ($1, $2, $3, $4, $5, $6) RETURNING *',
+            [description, task_date, importance, false, iduser, existedPlaylist.rows[0].id]);
         const taskDto = new TaskDto(newTask.rows[0]);
         return taskDto;
     }
@@ -47,11 +47,12 @@ class TaskService {
         const tasks = await db.query('SELECT * FROM tasks WHERE idplaylist = $1 AND task_date = $2', [idplaylist, date]);
         return tasks.rows
     }
-    async getByDate(date) {
-        const task = await db.query('SELECT * FROM tasks WHERE task_date = $1', [date]);
-        return task.rows[0]
+    async getByDate(iduser, date) {
+        const task = await db.query('SELECT * FROM tasks WHERE task_date = $1 AND iduser = $2', [date, iduser]);
+        return task.rows
     }
     async setComplete(id) {
+        console.log('-------: ' + id)
         const task = await db.query('SELECT * FROM tasks WHERE id = $1', [id]);
         if (!task.rowCount) {
             throw ApiError.BadRequestError('Task is not exist');

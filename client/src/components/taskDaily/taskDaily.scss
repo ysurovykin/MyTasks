@@ -28,7 +28,7 @@
         [class=task-daily-wrapper__header_pc] {
             display: none;
         }
-        
+
         padding: 50px 0px 0px 0px;
         width: 95%;
         align-self: center;
@@ -65,9 +65,11 @@
         align-self: center;
         justify-self: center;
         margin: 0;
+
         @media (max-width: 500px) {
             font-size: 40px;
         }
+
         @media (max-width: 400px) {
             font-size: 35px;
         }
@@ -100,9 +102,11 @@
             text-align: center;
             margin-top: -50px;
         }
+
         @media (max-width: 500px) {
             font-size: 30px;
         }
+
         @media (max-width: 350px) {
             font-size: 25px;
         }
@@ -120,19 +124,24 @@
         overflow-y: auto;
         overflow-x: hidden;
         row-gap: 30px;
+
         @media (max-width: 650px) {
             overflow: visible;
             padding-bottom: 140px;
         }
+
         @media (max-width: 550px) {
             padding-bottom: 120px;
         }
+
         @media (max-width: 450px) {
             padding-bottom: 100px;
         }
+
         @media (max-width: 350px) {
             padding-bottom: 80px;
         }
+
         .task-daily-wrapper__most-important-tasks-wrapper {
             grid-area: most;
             position: relative;
@@ -171,9 +180,11 @@
                     @media (max-width: 900px) {
                         font-size: 30px;
                     }
+
                     @media (max-width: 420px) {
                         font-size: 25px;
                     }
+
                     @media (max-width: 350px) {
                         font-size: 20px;
                     }
@@ -192,31 +203,12 @@
                 background-color: rgba(232, 130, 130, 0.5);
                 border-radius: 0px 0px 20px 20px;
 
-                .task-daily-wrapper__plus-img {
+                .task-daily-wrapper__empty{
                     align-self: center;
                     justify-self: center;
-                    background-color: white;
-                    width: 140px;
-                    height: 80px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    border-radius: 20px;
-
-                    @media (min-width: 90px) {
-                        width: 120px;
-                        height: 70px;
-                    }
-
-                    @media (min-width: 650px) {
-                        &:hover {
-                            background-color: #f3f3f3;
-                        }
-                    }
-
-                    img {
-                        cursor: pointer;
-                    }
+                    font-size: 30px;
+                    padding: 0px 7px;
+                    text-align: center;
                 }
 
                 .task-wrapper {
@@ -248,10 +240,6 @@
                             background-color: #f3f3f3;
                         }
 
-                        &:hover>.task-wrapper__edit-wrapper {
-                            display: flex;
-                        }
-
                     }
 
                     .task-wrapper__complete {
@@ -264,47 +252,10 @@
                         }
                     }
 
-                    .task-wrapper__edit-wrapper {
-                        border-radius: 50%;
-                        width: 48px;
-                        height: 48px;
-                        display: none;
-                        align-items: center;
-                        justify-content: center;
-                        transition: all 0.2s;
-
-                        @media (max-width: 900px) {
-                            width: 38px;
-                            height: 38px;
-                        }
-
-                        @media (max-width: 650px) {
-                            display: flex;
-                        }
-
-                        &:hover {
-                            background-color: #d9d9d9;
-                        }
-
-
-
-                        img {
-                            width: 42px;
-                            height: 42px;
-
-                            @media (max-width: 900px) {
-                                width: 32px;
-                                height: 32px;
-                            }
-                        }
-                    }
                 }
 
             }
 
-            // &:hover > .task-daily-wrapper__most-important-tasks{
-            //     height: 300px;
-            // }
         }
 
         .task-daily-wrapper__important-tasks-wrapper {
@@ -342,9 +293,11 @@
                     @media (max-width: 900px) {
                         font-size: 30px;
                     }
+
                     @media (max-width: 420px) {
                         font-size: 25px;
                     }
+
                     @media (max-width: 350px) {
                         font-size: 20px;
                     }
@@ -362,31 +315,12 @@
                 background-color: rgba(243, 210, 123, 0.5);
                 border-radius: 0px 0px 20px 20px;
 
-                .task-daily-wrapper__plus-img {
+                .task-daily-wrapper__empty{
                     align-self: center;
                     justify-self: center;
-                    background-color: white;
-                    width: 140px;
-                    height: 80px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    border-radius: 20px;
-
-                    @media (min-width: 90px) {
-                        width: 120px;
-                        height: 70px;
-                    }
-
-                    @media (min-width: 650px) {
-                        &:hover {
-                            background-color: #f3f3f3;
-                        }
-                    }
-
-                    img {
-                        cursor: pointer;
-                    }
+                    font-size: 30px;
+                    padding: 0px 7px;
+                    text-align: center;
                 }
 
                 .task-wrapper {
@@ -417,10 +351,6 @@
                         &:hover {
                             background-color: #f3f3f3;
                         }
-
-                        &:hover>.task-wrapper__edit-wrapper {
-                            display: flex;
-                        }
                     }
 
                     .task-wrapper__complete {
@@ -433,44 +363,9 @@
                         }
                     }
 
-                    .task-wrapper__edit-wrapper {
-                        border-radius: 50%;
-                        width: 48px;
-                        height: 48px;
-                        display: none;
-                        align-items: center;
-                        justify-content: center;
-                        transition: all 0.2s;
-
-                        @media (max-width: 900px) {
-                            width: 38px;
-                            height: 38px;
-                        }
-
-                        @media (max-width: 650px) {
-                            display: flex;
-                        }
-
-                        &:hover {
-                            background-color: #d9d9d9;
-                        }
-
-                        img {
-                            width: 42px;
-                            height: 42px;
-
-                            @media (max-width: 900px) {
-                                width: 32px;
-                                height: 32px;
-                            }
-                        }
-                    }
                 }
             }
 
-            // &:hover > .task-daily-wrapper__important-tasks{
-            //     height: 300px;
-            // }
         }
 
         .task-daily-wrapper__casual-tasks-wrapper {
@@ -508,9 +403,11 @@
                     @media (max-width: 900px) {
                         font-size: 30px;
                     }
+
                     @media (max-width: 420px) {
                         font-size: 25px;
                     }
+
                     @media (max-width: 350px) {
                         font-size: 20px;
                     }
@@ -528,31 +425,12 @@
                 background-color: rgba(124, 227, 147, 0.5);
                 border-radius: 0px 0px 20px 20px;
 
-                .task-daily-wrapper__plus-img {
+                .task-daily-wrapper__empty{
                     align-self: center;
                     justify-self: center;
-                    background-color: white;
-                    width: 140px;
-                    height: 80px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    border-radius: 20px;
-
-                    @media (min-width: 90px) {
-                        width: 120px;
-                        height: 70px;
-                    }
-
-                    @media (min-width: 650px) {
-                        &:hover {
-                            background-color: #f3f3f3;
-                        }
-                    }
-
-                    img {
-                        cursor: pointer;
-                    }
+                    font-size: 30px;
+                    padding: 0px 7px;
+                    text-align: center;
                 }
 
                 .task-wrapper {
@@ -584,9 +462,6 @@
                             background-color: #f3f3f3;
                         }
 
-                        &:hover>.task-wrapper__edit-wrapper {
-                            display: flex;
-                        }
                     }
 
                     .task-wrapper__complete {
@@ -599,44 +474,8 @@
                         }
                     }
 
-                    .task-wrapper__edit-wrapper {
-                        border-radius: 50%;
-                        width: 48px;
-                        height: 48px;
-                        display: none;
-                        align-items: center;
-                        justify-content: center;
-                        transition: all 0.2s;
-
-                        @media (max-width: 900px) {
-                            width: 38px;
-                            height: 38px;
-                        }
-
-                        @media (max-width: 650px) {
-                            display: flex;
-                        }
-
-                        &:hover {
-                            background-color: #d9d9d9;
-                        }
-
-                        img {
-                            width: 42px;
-                            height: 42px;
-
-                            @media (max-width: 900px) {
-                                width: 32px;
-                                height: 32px;
-                            }
-                        }
-                    }
                 }
             }
-
-            // &:hover > .task-daily-wrapper__casual-tasks{
-            //     height: 300px;
-            // }
         }
 
         &::-webkit-scrollbar {

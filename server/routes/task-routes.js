@@ -10,7 +10,7 @@ router.put('/complete', taskController.setComplete)
 
 router.delete('/delete/:id', taskController.delete)
 
-router.get('/getByDate/:date', taskController.getByDate)
+router.get('/getByDate/:iduser/:date', taskController.getByDate)
 router.get('/getDatesByPlaylist/:idplaylist', taskController.getDatesByPlaylist)
 router.get('/getByDateAndPlaylist/:idplaylist/:date', taskController.getByDateAndPlaylist)
 router.get('/getCompleted/:iduser/:period', taskController.getCompleted)
