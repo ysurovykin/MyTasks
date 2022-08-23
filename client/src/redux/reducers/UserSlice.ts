@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IUserState } from "../models/IUserState";
 import { IUser } from "../models/IUser";
-import { login, logout, refresh, registration, setPreviousPage } from "./UserActionCreator";
+import { changeTheme, login, logout, refresh, registration, setPreviousPage } from "./UserActionCreator";
 import { IUserData } from "../models/IUserData";
 
 const initialState: IUserState = {
@@ -77,6 +77,19 @@ export const userSlice = createSlice({
             state.error = '';
         },
         [setPreviousPage.rejected.type]: (state, action: PayloadAction<string>) => {
+            state.isLoading = false;
+            state.error = action.payload;
+        },
+
+        [changeTheme.pending.type]: (state) => {
+            state.isLoading = true;
+        },
+        [changeTheme.fulfilled.type]: (state, action: PayloadAction<IUser>) => {
+            state.isLoading = false;
+            state.userData = action.payload;
+            state.error = '';
+        },
+        [changeTheme.rejected.type]: (state, action: PayloadAction<string>) => {
             state.isLoading = false;
             state.error = action.payload;
         }

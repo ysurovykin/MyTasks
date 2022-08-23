@@ -23,12 +23,12 @@ function TaskPlaylist() {
 
     return (
         <div className='task-playlists-wrapper' >
-            <h1>Task playlists</h1>
+            <h1 className={`task-playlist__head-text ${userData.theme}`}>Task playlists</h1>
             <div className='task-playlists-wrapper__playlists'>
                 {playlists?.map(playlist =>
                     <Playlist key={playlist.id} title={playlist.name} image={playlist.image} id={playlist.id}
                     />)}
-                <div className="task-playlists-wrapper__add-playlist-wrapper">
+                <div className={`task-playlists-wrapper__add-playlist-wrapper ${userData.theme}`}>
                     <div className="playlist" onClick={setIsCreateValue}>
                         <img src='./images/plus-circle128x128.png' />
                     </div>

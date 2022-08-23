@@ -46,8 +46,8 @@ class UserController {
     }
     async changeTheme(req, res, next){
         try {
-            const {email} = req.body;
-            const user = await userService.changeTheme(email);
+            const {id} = req.body;
+            const user = await userService.changeTheme(id);
             return res.json(user);
         } catch (error) {
             next(error);

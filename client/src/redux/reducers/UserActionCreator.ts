@@ -60,3 +60,14 @@ export const setPreviousPage = createAsyncThunk(
         }
     }
 )
+export const changeTheme = createAsyncThunk(
+    'user/changeTheme',
+    async (iduser: {id: number}, thunkApi) => {
+        try {
+            const response = await api.put<IUserData>("http://localhost:5000/api/user/theme", iduser);
+            return response.data;
+        } catch (error: any) {
+            return thunkApi.rejectWithValue(error.message);
+        }
+    }
+)

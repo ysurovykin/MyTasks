@@ -1,9 +1,18 @@
 .navbar-wrapper {
-    background-color: #f1f1f1;
+   
     position: relative;
     width: fit-content;
     height: 100vh;
     padding: 0px 5px 0px 20px;
+    transition: all 0.3s ease-in-out;    
+
+    &.light{
+        background-color: #f1f1f1;
+    }
+
+    &.dark{
+        background-color: #181818;
+    }
 
     @media (max-width: 650px) {
         [class=navbar-wrapper__pc-theme-changer] {
@@ -46,7 +55,15 @@
         }
         .navbar-wrapper__pc-logout{
             justify-self: center;
-            stroke: #000001; 
+
+            &.light{
+                stroke: #000001; 
+            }
+        
+            &.dark{
+                stroke: #ffffff; 
+            }
+
             &:hover{
                 stroke: red;
             }

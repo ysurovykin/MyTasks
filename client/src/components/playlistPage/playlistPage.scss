@@ -24,6 +24,210 @@
             row-gap: 20px;
         }
 
+        &.light {
+            .playlist-page-wrapper__header {
+                .playlist-page-wrapper__head-wrapper {
+                    h1 {
+                        border: 1px solid black;
+                        background-color: #ffffff;
+                        color: black;
+                    }
+                }
+
+                .playlist-page-wrapper__input-wrapper {
+                    background-color: #ffffff;
+                    border: 1px solid black;
+
+                    input {
+                        color: black;
+                        border-bottom: 1px solid rgb(160, 160, 160);
+                    }
+                }
+
+                .playlist-page-wrapper__calendar {
+                    background-color: #ffffff;
+                    border: 1px solid black;
+
+                    button {
+                        color: black;
+                    }
+                }
+
+                .playlist-page-wrapper__back-btn {
+                    background-color: #ffffff;
+                    border: 1px solid black;
+
+                    h2 {
+                        color: black;
+                    }
+                }
+
+            }
+
+            .playlist-page-wrapper__create-btn {
+                background-color: #ffffff;
+                border: 1px solid black;
+
+                h2 {
+                    color: black;
+                }
+            }
+
+            .playlist-page-wrapper__empty-playlist {
+                color: black;
+            }
+
+            .playlist-page-wrapper__tasks {
+
+                @media (max-width: 650px) {
+                    border-top: 1px solid black;
+                }
+
+                .playlist-page-wrapper__task-wrapper {
+                    .playlist-page-wrapper__date {
+                        color: black;
+                        border: 1px solid black;
+                        background-color: #ffffff;
+                    }
+
+                    .playlist-page-wrapper__task {
+                        border: 1px solid black;
+                        background-color: #ffffff;
+
+                        h2 {
+                            color: black;
+                        }
+
+                        .playlist-page-wrapper__edit-wrapper {
+                            .playlist-page-wrapper__edit-task-input {
+                                color: black;
+                                border-bottom: 1px solid black;
+                            }
+
+                            .playlist-page-wrapper__edit-task-date-input {
+                                color: black;
+                                &::-webkit-calendar-picker-indicator {
+                                    background: url('../../../public/images/calendar.png');
+                                    background-size: contain;
+                                    width: 30px;
+                                    height: 30px;
+                                }
+                            }
+                        }
+
+                        .playlist-page-wrapper__img-wrapper {
+                            &:hover {
+                                background-color: #d9d9d9;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        &.dark {
+            .playlist-page-wrapper__header {
+                .playlist-page-wrapper__head-wrapper {
+                    h1 {
+                        border: 1px solid rgb(255, 255, 255);
+                        background-color: #353535;
+                        color: white
+                    }
+                }
+
+                .playlist-page-wrapper__input-wrapper {
+                    background-color: #353535;
+                    border: 1px solid rgb(255, 255, 255);
+
+                    input {
+                        color:rgb(255, 255, 255);
+                        border-bottom: 1px solid rgb(160, 160, 160);
+                    }
+                }
+
+                .playlist-page-wrapper__calendar {
+                    background-color: #353535;
+                    border: 1px solid rgb(255, 255, 255);
+
+                    button {
+                        color: rgb(255, 255, 255);
+                    }
+                }
+
+                .playlist-page-wrapper__back-btn {
+                    background-color: #353535;
+                    border: 1px solid rgb(255, 255, 255);
+
+                    h2 {
+                        color: rgb(255, 255, 255);
+                    }
+                }
+
+            }
+
+            .playlist-page-wrapper__create-btn {
+                background-color: #353535;
+                border: 1px solid rgb(255, 255, 255);
+
+                h2 {
+                    color: rgb(255, 255, 255);
+                }
+            }
+
+            .playlist-page-wrapper__empty-playlist {
+                color: rgb(255, 255, 255);
+            }
+
+            .playlist-page-wrapper__tasks {
+
+                @media (max-width: 650px) {
+                    border-top: 1px solid rgb(255, 255, 255);
+                }
+
+                .playlist-page-wrapper__task-wrapper {
+                    .playlist-page-wrapper__date {
+                        color: white;
+                        border: 1px solid rgb(255, 255, 255);
+                        background-color: #353535;
+                    }
+
+                    .playlist-page-wrapper__task {
+                        border: 1px solid rgb(255, 255, 255);
+                        background-color: #353535;
+
+                        h2 {
+                            color: rgb(255, 255, 255);
+                        }
+
+                        .playlist-page-wrapper__edit-wrapper {
+                            .playlist-page-wrapper__edit-task-input {
+                                color: white;
+                                border-bottom: 1px solid rgb(255, 255, 255);
+                            }
+
+                            .playlist-page-wrapper__edit-task-date-input {
+                                color: white;
+                                &::-webkit-calendar-picker-indicator {
+                                    background: url('../../../public/images/calendar-light.png');
+                                    background-size: contain;
+                                    width: 30px;
+                                    height: 30px;
+                                }
+                            }
+                        }
+
+                        .playlist-page-wrapper__img-wrapper {
+                            &:hover {
+                                background-color: #535353;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+
+
         .playlist-page-wrapper__header {
             display: grid;
             grid-template-columns: 1fr 2fr 0.5fr 0.5fr;
@@ -74,12 +278,10 @@
 
                 h1 {
                     font-size: 40px;
-                    border: 1px solid black;
                     padding: 10px 30px;
                     border-radius: 30px;
                     height: fit-content;
                     width: fit-content;
-                    background-color: #ffffff;
                     justify-self: start;
 
                     @media (max-width: 1300px) {
@@ -107,12 +309,10 @@
                 border-radius: 30px;
                 height: 50px;
                 width: 90%;
-                background-color: #ffffff;
                 justify-self: start;
                 display: flex;
                 align-items: center;
-                border: 1px solid black;
-                
+
                 @media (max-width: 1000px) {
                     padding: 10px 20px 10px 10px;
                 }
@@ -126,8 +326,8 @@
                 input {
                     font-size: 20px;
                     outline: none;
+                    background: transparent;
                     border: none;
-                    border-bottom: 1px solid rgb(160, 160, 160);
                     width: 100%;
                     margin-left: 10px;
 
@@ -140,13 +340,11 @@
                 border-radius: 30px;
                 height: fit-content;
                 width: fit-content;
-                background-color: #ffffff;
                 justify-self: center;
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
-                border: 1px solid black;
 
                 @media (max-width: 1000px) {
                     padding: 0px 10px 5px 10px;
@@ -193,12 +391,10 @@
                 border-radius: 30px;
                 height: 50px;
                 width: fit-content;
-                background-color: #ffffff;
                 justify-self: center;
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                border: 1px solid black;
                 cursor: pointer;
 
                 @media (max-width: 900px) {
@@ -248,12 +444,10 @@
             border-radius: 30px;
             height: 50px;
             width: fit-content;
-            background-color: #ffffff;
             justify-self: end;
             display: flex;
             justify-content: center;
             align-items: center;
-            border: 1px solid black;
             cursor: pointer;
 
             @media (max-width: 650px) {
@@ -276,12 +470,6 @@
             align-self: flex-start;
             justify-self: center;
             font-size: 60px;
-            
-
-            // @media (max-width: 900px) {
-            //     font-size: 50px;
-            //     padding-top: 50px;
-            // }
 
             @media (max-width: 900px) {
                 font-size: 40px;
@@ -310,20 +498,16 @@
             }
 
             @media (max-width: 650px) {
-                border-top: 1px solid black;
                 overflow: visible;
             }
 
             .playlist-page-wrapper__task-wrapper {
                 display: grid;
-
                 row-gap: 15px;
 
                 .playlist-page-wrapper__date {
                     align-self: center;
                     justify-self: center;
-                    border: 1px solid black;
-                    background-color: #ffffff;
                     border-radius: 30px;
                     padding: 10px 20px;
                     font-weight: 500;
@@ -341,8 +525,6 @@
                     width: 90%;
                     justify-self: center;
                     align-items: center;
-                    border: 1px solid black;
-                    background-color: #ffffff;
                     border-radius: 30px;
                     padding: 10px 20px;
 
@@ -376,11 +558,11 @@
 
                         .playlist-page-wrapper__edit-task-input {
                             font-size: 25px;
+                            background: transparent;
                             font-weight: 500;
                             margin: 9px 0px;
                             outline: none;
                             border: none;
-                            border-bottom: 1px solid black;
 
                             @media (max-width: 1000px) {
                                 font-size: 20px;
@@ -392,15 +574,9 @@
                         }
 
                         .playlist-page-wrapper__edit-task-date-input {
-                            &::-webkit-calendar-picker-indicator {
-                                background: url('../../../public/images/calendar.png');
-                                background-size: contain;
-                                width: 30px;
-                                height: 30px;
-                            }
-
                             justify-self: end;
                             font-size: 25px;
+                            background: transparent;
                             font-weight: 500;
                             margin: 9px 0px;
                             outline: none;
@@ -434,10 +610,6 @@
                         transition: all 0.2s;
                         cursor: pointer;
                         justify-self: center;
-
-                        &:hover {
-                            background-color: #d9d9d9;
-                        }
 
                         img {
                             width: 32px;

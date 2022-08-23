@@ -17,12 +17,81 @@
         width: 400px;
         height: 550px;
         border-radius: 30px;
-        background-color: #ffffff;
         display: grid;
         row-gap: 0px;
         padding: 20px;
         align-items: center;
         justify-content: center;
+        transition: all 0.3s ease-in-out;
+
+        &.light {
+            background-color: #ffffff;
+
+            .form-input {
+                h2 {
+                    color: black;
+                }
+
+                .input-wrapper {
+                    background-color: #EBEBEB;
+
+                    h3 {
+                        color: black;
+                    }
+
+                    .input {
+                        color: black;
+                        border-bottom: 1px solid rgb(99, 99, 99);
+
+                        &:focus {
+                            border-bottom: 1px solid rgb(0, 0, 0);
+                        }
+                    }
+
+                    .input[type=date]::-webkit-calendar-picker-indicator {
+                        background: url('../../../public/images/calendar.png');
+                        background-size: contain;
+                        width: 30px;
+                        height: 30px;
+                    }
+                }
+            }
+        }
+
+        &.dark {
+            background-color: #353535;
+
+            .form-input {
+                h2 {
+                    color: rgb(255, 255, 255);
+                }
+
+                .input-wrapper {
+                    background-color: #535353;
+
+                    h3 {
+                        color: rgb(255, 255, 255);
+                    }
+
+                    .input {
+                        color: rgb(255, 255, 255);
+                        border-bottom: 1px solid rgb(99, 99, 99);
+
+                        &:focus {
+                            border-bottom: 1px solid rgb(255, 255, 255);
+                        }
+                    }
+
+                    .input[type=date]::-webkit-calendar-picker-indicator {
+                        background: url('../../../public/images/calendar-light.png');
+                        background-size: contain;
+                        width: 30px;
+                        height: 30px;
+                    }
+
+                }
+            }
+        }
 
         @media (max-width: 650px) {
             margin-top: 40px;
@@ -44,7 +113,6 @@
         .form-input {
 
             h2 {
-                color: black;
                 font-size: 20px;
                 margin: 0;
                 margin-bottom: 5px;
@@ -57,7 +125,6 @@
             }
 
             .input-wrapper {
-                background-color: #EBEBEB;
                 width: 300px;
                 height: 70px;
                 border-radius: 30px;
@@ -72,18 +139,15 @@
 
 
                 h3 {
-                    color: black;
                     font-size: 15px;
                     margin: 0;
                     font-weight: normal;
                 }
 
                 .input {
-                    color: black;
                     font-size: 20px;
                     background: none;
                     border: none;
-                    border-bottom: 1px solid rgb(99, 99, 99);
                     width: 100%;
                     outline: none;
 
@@ -91,19 +155,7 @@
                         font-size: 18px;
                     }
 
-                    &:focus {
-                        border-bottom: 1px solid rgb(0, 0, 0);
-                    }
-
                 }
-
-                .input[type=date]::-webkit-calendar-picker-indicator {
-                    background: url('../../../public/images/calendar.png');
-                    background-size: contain;
-                    width: 30px;
-                    height: 30px;
-                }
-
             }
 
             .circle-wrapper {
@@ -143,6 +195,27 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            transition: all 0.3s ease-in-out;
+
+            &.light {
+                .create-btn {
+                    color: black
+                }
+
+                .cancel-btn {
+                    color: black;
+                }
+            }
+
+            &.dark {
+                .create-btn {
+                    color: white
+                }
+
+                .cancel-btn {
+                    color: white;
+                }
+            }
 
             .create-btn {
                 outline: none;
@@ -152,8 +225,6 @@
                 font-size: 25px;
                 cursor: pointer;
                 background-color: rgba(124, 227, 147, 0.75);
-
-
             }
 
             .cancel-btn {
@@ -164,8 +235,6 @@
                 font-size: 25px;
                 cursor: pointer;
                 background-color: rgba(232, 130, 130, 0.75);
-
-
             }
         }
     }

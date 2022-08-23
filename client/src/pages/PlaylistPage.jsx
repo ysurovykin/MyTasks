@@ -10,13 +10,13 @@ import CreateTaskForm from '../components/createTaskForm'
 import { playlistAPI } from '../redux/services/PlaylistService'
 import { taskAPI } from '../redux/services/TaskService'
 import { setPreviousPage } from '../redux/reducers/UserActionCreator'
-import { useAppDispatch } from '../redux/hooks/redux'
+import { useAppDispatch, useAppSelector } from '../redux/hooks/redux'
 
 
 export function PlaylistPage() {
 
     const { id } = useParams();
-
+    const { userData } = useAppSelector(state => state.userSlice)
     const dispatch = useAppDispatch();
 
     const navigate = useNavigate()
@@ -70,13 +70,13 @@ export function PlaylistPage() {
     }, [dates])
     return (
         <div className="playlist-page-wrapper">
-            <div className="playlist-page-wrapper__content">
+            <div className={`playlist-page-wrapper__content ${userData.theme}`}>
                 <div className='playlist-page-wrapper__header'>
                     <div className='playlist-page-wrapper__head-wrapper'>
                         <h1>{playlistData?.name}</h1>
                     </div>
                     <div className='playlist-page-wrapper__input-wrapper'>
-                        <img src="./images/search.png" alt="search" />
+                        <img src={userData.theme === 'light' ? "./images/search.png" : "./images/search-light.png"} alt="search" />
                         <input
                             type={'text'}
                             placeholder={'Text to search...'}
@@ -84,7 +84,7 @@ export function PlaylistPage() {
                             onChange={handleSearchedTaskChange} />
                     </div>
                     <div className='playlist-page-wrapper__calendar'>
-                        <img src="./images/calendar.png" alt="search" onClick={() => { setStartDate(''); }} />
+                        <img src={userData.theme === 'light' ? "./images/calendar.png" : "./images/calendar-light.png"} alt="search" onClick={() => { setStartDate(''); }} />
                         <DatePicker
                             customInput={<CustomDatePicker />}
                             selected={startDate}
@@ -97,7 +97,7 @@ export function PlaylistPage() {
                     </div>
                     <div className='playlist-page-wrapper__back-btn' onClick={backToPlaylists}>
                         <h2>Back</h2>
-                        <img src="./images/section-arrow.png" alt="arrow" />
+                        <img src={userData.theme === 'light' ? "./images/section-arrow.png" : "./images/section-arrow-light.png"} alt="arrow" />
                     </div>
                 </div>
                 <div className='playlist-page-wrapper__create-btn'>

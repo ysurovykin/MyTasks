@@ -40,8 +40,8 @@ function CreateTaskForm({ setIsCreateValue, playlistName }) {
 
     return (
         <div className='create-form-wrapper'>
-            <div className='create-form'>
-                <div className='form-input'>
+            <div className={`create-form ${userData.theme}`}>
+                <div className={`form-input ${userData.theme}`}>
                     <h2>What playlist does this task belong to?</h2>
                     <div className="input-wrapper">
                         <input className="input"
@@ -52,7 +52,7 @@ function CreateTaskForm({ setIsCreateValue, playlistName }) {
                         />
                     </div>
                 </div>
-                <div className='form-input'>
+                <div className={`form-input ${userData.theme}`}>
                     <h2>What should you do?</h2>
                     <div className="input-wrapper">
                         <input className="input"
@@ -63,7 +63,7 @@ function CreateTaskForm({ setIsCreateValue, playlistName }) {
                         />
                     </div>
                 </div>
-                <div className='form-input'>
+                <div className={`form-input ${userData.theme}`}>
                     <h2>When should you do this task?</h2>
                     <div className="input-wrapper">
                         <input className="input"
@@ -75,30 +75,30 @@ function CreateTaskForm({ setIsCreateValue, playlistName }) {
                         />
                     </div>
                 </div>
-                <div className='form-input'>
+                <div className={`form-input ${userData.theme}`}>
                     <h2>Choose the priority for this task</h2>
                     <div className="input-wrapper circle-wrapper">
                         <div className='importance-wrapper'>
                             <div className="form-circle red-circle" onClick={() => setImportanse('most')}
-                                style={importanse === 'most' ? { border: '1px solid black' } : null}
+                                style={importanse === 'most' ? { border: `${userData.theme === 'light' ? '2px solid black' : '2px solid white' }` } : null}
                             ></div>
                             <h3>High</h3>
                         </div>
                         <div className='importance-wrapper'>
                             <div className="form-circle yellow-circle" onClick={() => setImportanse('important')}
-                                style={importanse === 'important' ? { border: '1px solid black' } : null}
+                                style={importanse === 'important' ? { border: `${userData.theme === 'light' ? '2px solid black' : '2px solid white' }` } : null}
                             ></div>
                             <h3>Medium</h3>
                         </div>
                         <div className='importance-wrapper'>
                             <div className="form-circle green-circle" onClick={() => setImportanse('casual')}
-                                style={importanse === 'casual' ? { border: '1px solid black' } : null}
+                                style={importanse === 'casual' ? { border: `${userData.theme === 'light' ? '2px solid black' : '2px solid white' }` } : null}
                             ></div>
                             <h3>Low</h3>
                         </div>
                     </div>
                 </div>
-                <div className='form-buttons'>
+                <div className={`form-buttons ${userData.theme}`}>
                     <button className='create-btn' onClick={handleCreateTask}>Create</button>
                     <button className='cancel-btn' onClick={cancelCreate}>Cancel</button>
                 </div>

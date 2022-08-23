@@ -9,6 +9,8 @@ import {useAppSelector } from '../redux/hooks/redux';
 
 export function MainPage() {
 
+
+    const {userData} = useAppSelector(state => state.userSlice)
     const { currentPage } = useAppSelector(state => state.userSlice)
     const [page, setPage] = useState(currentPage);
     const switchPages = () => {
@@ -20,7 +22,7 @@ export function MainPage() {
     }
 
     return (
-        <div className='main-page-wrapper'>
+        <div className={`main-page-wrapper ${userData.theme}`}>
             <Navbar page={page} setPage={setPage} />
             {switchPages()}
             <MobileFooter />

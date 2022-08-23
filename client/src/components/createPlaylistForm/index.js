@@ -46,8 +46,8 @@ function CreatePlaylistForm({ setIsCreateValue }) {
     }, [])
 
     return (
-        <div className='create-playlist-form-wrapper'>
-            <div className='create-playlist-form'>
+        <div className={`create-playlist-form-wrapper ${userData.theme}`}>
+            <div className={`create-playlist-form ${userData.theme}`}>
                 <div className='album-form-input'>
                     <div className="album-wrapper" style={{ background: `${gradient}` }}></div>
                     <button className='generate-btn' onClick={generateGradient}>Generate gradient</button>
@@ -64,7 +64,7 @@ function CreatePlaylistForm({ setIsCreateValue }) {
                         />
                     </div>
                 </div>
-                <div className='playlist-form-buttons'>
+                <div className={`playlist-form-buttons ${userData.theme}`}>
                     <button className='create-btn' onClick={handleCreatePlaylist}>Create</button>
                     <button className='cancel-btn' onClick={cancelCreate}>Cancel</button>
                 </div>

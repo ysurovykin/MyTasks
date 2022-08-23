@@ -1,9 +1,11 @@
 import { useState } from "react";
+import { useAppSelector } from "../../redux/hooks/redux";
 import { taskAPI } from "../../redux/services/TaskService";
 
 function PlaylistsTask({ task, importanse, id, date }) {
 
     const [editedImportanse, setEditedImportanse] = useState(importanse);
+    const {userData} = useAppSelector(state => state.userSlice)
 
     const circleColor = () => {
         switch (editedImportanse) {
@@ -87,18 +89,18 @@ function PlaylistsTask({ task, importanse, id, date }) {
             {isEditing
                 ? <>
                     <div className='playlist-page-wrapper__img-wrapper' onClick={handleIsEditing}>
-                        <img src="./images/close-circle.png" alt="close-circle" />
+                        <img src={userData.theme === 'light' ? "./images/close-circle.png" : "./images/close-circle-light.png"} alt="close-circle" />
                     </div>
                     <div className='playlist-page-wrapper__img-wrapper' onClick={handleEdit}>
-                        <img src="./images/check-circle-bold.png" alt="check-circle" />
+                        <img src={userData.theme === 'light' ? "./images/check-circle.png" : "./images/check-circle-light.png"} alt="check-circle" />
                     </div>
                 </>
                 : <>
                     <div className='playlist-page-wrapper__img-wrapper' onClick={handleDeleteTask}>
-                        <img src="./images/trash-bin.png" alt="trash-bin" />
+                        <img src={userData.theme === 'light' ? "./images/trash-bin.png" : "./images/trash-bin-light.png"} alt="trash-bin" />
                     </div>
                     <div className='playlist-page-wrapper__img-wrapper' onClick={handleIsEditing}>
-                        <img src="./images/edit32x32.png" alt="edit32x32" />
+                        <img src={userData.theme === 'light' ? "./images/edit32x32.png" : "./images/edit32x32-light.png"} alt="edit32x32" />
                     </div>
                 </>
             }

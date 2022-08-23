@@ -7,23 +7,113 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: all 0.5s ease-in-out;
     background-color: rgba(0, 0, 0, 0.5);
+
 
     @media (max-width: 650px) {
         align-items: flex-start;
     }
 
-    .create-playlist-form { 
+    .create-playlist-form {
         width: 450px;
         height: 600px;
         border-radius: 30px;
-        background-color: #ffffff;
         display: grid;
         row-gap: 0px;
         padding: 20px 0px;
         align-items: center;
         justify-content: center;
         grid-template-rows: 1fr 0.5fr 0.2fr;
+        transition: all 0.3s ease-in-out;
+
+        &.light {
+            background-color: #ffffff;
+
+            .album-form-input {
+                .album-wrapper {
+                    border: 2px solid black;
+                }
+
+                .generate-btn {
+                    background-color: #e1e1e1;
+                    color: black
+                }
+
+                .upload-btn {
+                    background-color: #e1e1e1;
+                    color: black
+                }
+            }
+
+            .playlist-form-input {
+
+                h2 {
+                    color: black;
+                }
+
+                .playlist-input-wrapper {
+                    background-color: #EBEBEB;
+
+                    h3 {
+                        color: black;
+                    }
+
+                    .playlist-input {
+                        color: black;
+                        border-bottom: 1px solid rgb(99, 99, 99);
+
+                        &:focus {
+                            border-bottom: 1px solid rgb(0, 0, 0);
+                        }
+                    }
+                }
+            }
+        }
+
+        &.dark {
+            background-color: #353535;
+
+            .album-form-input {
+                .album-wrapper {
+                    border: 2px solid rgb(255, 255, 255);
+                }
+
+                .generate-btn {
+                    background-color: #535353;
+                    color: white;
+                }
+
+                .upload-btn {
+                    background-color: #535353;
+                    color: white;
+                }
+            }
+
+            .playlist-form-input {
+
+                h2 {
+                    color: white;
+                }
+
+                .playlist-input-wrapper {
+                    background-color: #535353;
+
+                    h3 {
+                        color: white;
+                    }
+
+                    .playlist-input {
+                        color: white;
+                        border-bottom: 1px solid rgb(99, 99, 99);
+
+                        &:focus {
+                            border-bottom: 1px solid rgb(255, 255, 255);
+                        }
+                    }
+                }
+            }
+        }
 
         @media (max-width: 650px) {
             margin-top: 30px;
@@ -54,7 +144,6 @@
                 height: 80%;
                 align-self: center;
                 justify-self: center;
-                border: 2px solid black;
             }
 
             .generate-btn {
@@ -64,7 +153,6 @@
                 padding: 10px 20px;
                 font-size: 25px;
                 cursor: pointer;
-                background-color: #e1e1e1;
             }
 
             .upload-btn {
@@ -74,7 +162,6 @@
                 padding: 10px 20px;
                 font-size: 25px;
                 cursor: pointer;
-                background-color: #e1e1e1;
             }
         }
 
@@ -83,20 +170,20 @@
             justify-self: center;
             display: flex;
             flex-direction: column;
+
             h2 {
-                color: black;
                 font-size: 20px;
                 margin: 0;
                 margin-bottom: 5px;
                 font-weight: normal;
                 align-self: center;
+
                 @media (max-width: 420px) {
                     font-size: 18px;
                 }
             }
 
             .playlist-input-wrapper {
-                background-color: #EBEBEB;
                 width: 300px;
                 height: 70px;
                 border-radius: 30px;
@@ -118,20 +205,14 @@
                 }
 
                 .playlist-input {
-                    color: black;
                     font-size: 20px;
                     background: none;
                     border: none;
-                    border-bottom: 1px solid rgb(99, 99, 99);
                     width: 100%;
                     outline: none;
 
                     @media (max-width: 420px) {
                         font-size: 18px;
-                    }
-
-                    &:focus {
-                        border-bottom: 1px solid rgb(0, 0, 0);
                     }
 
                 }
@@ -143,6 +224,27 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            transition: all 0.3s ease-in-out;
+
+            &.light {
+                .create-btn {
+                    color: black
+                }
+
+                .cancel-btn {
+                    color: black;
+                }
+            }
+
+            &.dark {
+                .create-btn {
+                    color: white
+                }
+
+                .cancel-btn {
+                    color: white;
+                }
+            }
 
             .create-btn {
                 outline: none;
@@ -152,8 +254,6 @@
                 font-size: 25px;
                 cursor: pointer;
                 background-color: rgba(124, 227, 147, 0.75);
-
-
             }
 
             .cancel-btn {

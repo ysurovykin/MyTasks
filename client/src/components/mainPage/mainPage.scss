@@ -1,5 +1,17 @@
-.main-page-wrapper{
+.main-page-wrapper {
     display: flex;
+    transition: all 0.3s ease-in-out;
+    
+
+    &.light {
+        background: white;
+    }
+
+    &.dark {
+        background: black;
+    }
+
+
     @media (max-width: 650px) {
         flex-direction: column;
     }

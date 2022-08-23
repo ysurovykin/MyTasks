@@ -58,14 +58,21 @@ class UserService {
 
         return { ...tokens, user: userDto }
     }
-    async changeTheme(email) {
-        const userData = await db.query('SELECT * FROM users WHERE email = $1', [email]);
+    async changeTheme(id) {
+        const userData = await db.query('SELECT * FROM users WHERE id = $1', [id]);
         if (!userData.rowCount) {
-            throw ApiError.BadRequestError('Incorrect email');
+            throw ApiError.BadRequestError('User is not exist');
         }
-        const newUserData = await db.query('UPDATE users SET theme = $1 WHERE id = $2 RETURNING *', [!(userData.rows[0].theme), userData.rows[0].id]);
-        const userDto = new UserDto(newUserData.rows[0]);
-        return userDto;
+        if (userData.rows[0].theme === 'light') {
+            const newUserData = await db.query('UPDATE users SET theme = $1 WHERE id = $2 RETURNING *', ['dark', userData.rows[0].id]);
+            const userDto = new UserDto(newUserData.rows[0]);
+            return userDto;
+        }
+        else {
+            const newUserData = await db.query('UPDATE users SET theme = $1 WHERE id = $2 RETURNING *', ['light', userData.rows[0].id]);
+            const userDto = new UserDto(newUserData.rows[0]);
+            return userDto;
+        }
     }
 }
 
