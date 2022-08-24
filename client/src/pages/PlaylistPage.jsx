@@ -11,6 +11,7 @@ import { playlistAPI } from '../redux/services/PlaylistService'
 import { taskAPI } from '../redux/services/TaskService'
 import { setPreviousPage } from '../redux/reducers/UserActionCreator'
 import { useAppDispatch, useAppSelector } from '../redux/hooks/redux'
+import { PageLoading } from '../components/loaders/pageLoader'
 
 
 export function PlaylistPage() {
@@ -32,8 +33,8 @@ export function PlaylistPage() {
     const [dates, setDates] = useState([]);
     const [isAnyDates, setIsAnyDates] = useState();
     const [isTasksAtDate, setIsTasksAtDate] = useState();
-    const { data: playlistData } = playlistAPI.useFetchPlaylistQuery(id)
-    const { data: taskData } = taskAPI.useFetchDatesByPlaylistQuery(id)
+    const { data: playlistData, isLoading: playlistLoading } = playlistAPI.useFetchPlaylistQuery(id)
+    const { data: taskData, isLoading: tasksLoading } = taskAPI.useFetchDatesByPlaylistQuery(id)
 
     const dateSearch = (date) => {
         if (startDate === '') { return true }
@@ -70,59 +71,67 @@ export function PlaylistPage() {
     }, [dates])
     return (
         <div className="playlist-page-wrapper">
-            <div className={`playlist-page-wrapper__content ${userData.theme}`}>
-                <div className='playlist-page-wrapper__header'>
-                    <div className='playlist-page-wrapper__head-wrapper'>
-                        <h1>{playlistData?.name}</h1>
+            {playlistLoading
+                ? <PageLoading />
+                : <>
+                    <div className={`playlist-page-wrapper__content ${userData.theme}`}>
+                        <div className='playlist-page-wrapper__header'>
+                            <div className='playlist-page-wrapper__head-wrapper'>
+                                <h1>{playlistData?.name}</h1>
+                            </div>
+                            <div className='playlist-page-wrapper__input-wrapper'>
+                                <img src={userData.theme === 'light' ? "./images/search.png" : "./images/search-light.png"} alt="search" />
+                                <input
+                                    type={'text'}
+                                    placeholder={'Text to search...'}
+                                    value={searchedTask}
+                                    onChange={handleSearchedTaskChange} />
+                            </div>
+                            <div className='playlist-page-wrapper__calendar'>
+                                <img src={userData.theme === 'light' ? "./images/calendar.png" : "./images/calendar-light.png"} alt="search" onClick={() => { setStartDate(''); }} />
+                                <DatePicker
+                                    customInput={<CustomDatePicker />}
+                                    selected={startDate}
+                                    onChange={(date) => setStartDate(date)}
+                                    dateFormat="dd/MM/yyyy"
+                                    minDate={new Date()}
+                                    showMonthDropdown
+                                    showYearDropdown
+                                    dropdownMode="select" />
+                            </div>
+                            <div className='playlist-page-wrapper__back-btn' onClick={backToPlaylists}>
+                                <h2>Back</h2>
+                                <img src={userData.theme === 'light' ? "./images/section-arrow.png" : "./images/section-arrow-light.png"} alt="arrow" />
+                            </div>
+                        </div>
+                        <div className='playlist-page-wrapper__create-btn'>
+                            <h2 onClick={setIsCreateValue}>Create new task</h2>
+                        </div>
+                        {tasksLoading
+                            ? <PageLoading />
+                            : isAnyDates
+                                ? <>
+                                    {!isTasksAtDate
+                                        ? <h2 className='playlist-page-wrapper__empty-playlist'>No plans at {`${dateBuilder(startDate)}`}</h2>
+                                        : <div className='playlist-page-wrapper__tasks'>
+                                            {dates?.map(date => <PlaylistsDay key={date} date={date} id={id} searchedTask={searchedTask} />)}
+                                        </div>}
+                                </>
+                                : <h2 className='playlist-page-wrapper__empty-playlist'>Playlist {` \'${playlistData?.name}\' `} is empty</h2>
+
+                        }
+                        <div className='playlist-mobile-whitespace'></div>
                     </div>
-                    <div className='playlist-page-wrapper__input-wrapper'>
-                        <img src={userData.theme === 'light' ? "./images/search.png" : "./images/search-light.png"} alt="search" />
-                        <input
-                            type={'text'}
-                            placeholder={'Text to search...'}
-                            value={searchedTask}
-                            onChange={handleSearchedTaskChange} />
+                    <div className='playlist-page-wrapper__bg' style={{ background: `${playlistData?.image}` }}>
                     </div>
-                    <div className='playlist-page-wrapper__calendar'>
-                        <img src={userData.theme === 'light' ? "./images/calendar.png" : "./images/calendar-light.png"} alt="search" onClick={() => { setStartDate(''); }} />
-                        <DatePicker
-                            customInput={<CustomDatePicker />}
-                            selected={startDate}
-                            onChange={(date) => setStartDate(date)}
-                            dateFormat="dd/MM/yyyy"
-                            minDate={new Date()}
-                            showMonthDropdown
-                            showYearDropdown
-                            dropdownMode="select" />
-                    </div>
-                    <div className='playlist-page-wrapper__back-btn' onClick={backToPlaylists}>
-                        <h2>Back</h2>
-                        <img src={userData.theme === 'light' ? "./images/section-arrow.png" : "./images/section-arrow-light.png"} alt="arrow" />
-                    </div>
-                </div>
-                <div className='playlist-page-wrapper__create-btn'>
-                    <h2 onClick={setIsCreateValue}>Create new task</h2>
-                </div>
-                {isAnyDates
-                    ? <>
-                        {!isTasksAtDate
-                            ? <h2 className='playlist-page-wrapper__empty-playlist'>No plans at {`${dateBuilder(startDate)}`}</h2>
-                            : <div className='playlist-page-wrapper__tasks'>
-                                {dates?.map(date => <PlaylistsDay key={date} date={date} id={id} searchedTask={searchedTask} />)}
-                            </div>}
-                    </>
-                    : <h2 className='playlist-page-wrapper__empty-playlist'>Playlist {` \'${playlistData?.name}\' `} is empty</h2>
-                }
-                <div className='playlist-mobile-whitespace'></div>
-            </div>
-            <div className='playlist-page-wrapper__bg' style={{ background: `${playlistData?.image}` }}>
-            </div>
-            {
-                isCreate
-                    ? <CreateTaskForm setIsCreateValue={setIsCreateValue} playlistName={playlistData?.name} />
-                    : null
+                    {
+                        isCreate
+                            ? <CreateTaskForm setIsCreateValue={setIsCreateValue} playlistName={playlistData?.name} />
+                            : null
+                    }
+                    <MobileFooter />
+                </>
             }
-            <MobileFooter />
         </div >
     )
 }

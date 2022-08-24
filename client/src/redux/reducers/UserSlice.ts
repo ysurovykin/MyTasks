@@ -81,9 +81,6 @@ export const userSlice = createSlice({
             state.error = action.payload;
         },
 
-        [changeTheme.pending.type]: (state) => {
-            state.isLoading = true;
-        },
         [changeTheme.fulfilled.type]: (state, action: PayloadAction<IUser>) => {
             state.isLoading = false;
             state.userData = action.payload;

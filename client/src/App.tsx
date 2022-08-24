@@ -1,15 +1,17 @@
 
 import { useEffect } from 'react';
-import { useSelector, useStore } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import AppRouter from './components/AppRouter';
-import { useAppDispatch } from './redux/hooks/redux';
+import { UserLoading } from './components/loaders/user-loader';
+import { useAppDispatch, useAppSelector } from './redux/hooks/redux';
 import { refresh } from './redux/reducers/UserActionCreator';
 
 
 function App() {
 
   const dispatch = useAppDispatch();
+
+  const { isLoading } = useAppSelector(state => state.userSlice)
 
   useEffect(() => {
     async function checkAuth() {
@@ -22,7 +24,10 @@ function App() {
 
   return (
     <BrowserRouter>
-      <AppRouter />
+      {isLoading
+        ? <UserLoading />
+        : <AppRouter />
+      }
     </BrowserRouter>
   );
 }

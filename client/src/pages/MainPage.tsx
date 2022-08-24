@@ -9,7 +9,6 @@ import {useAppSelector } from '../redux/hooks/redux';
 
 export function MainPage() {
 
-
     const {userData} = useAppSelector(state => state.userSlice)
     const { currentPage } = useAppSelector(state => state.userSlice)
     const [page, setPage] = useState(currentPage);
