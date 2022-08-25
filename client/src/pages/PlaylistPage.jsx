@@ -122,7 +122,7 @@ export function PlaylistPage() {
                         }
                         <div className='playlist-mobile-whitespace'></div>
                     </div>
-                    <div className='playlist-page-wrapper__bg' style={{ background: `${playlistData?.image}` }}>
+                    <div className='playlist-page-wrapper__bg' style={{ background: `${playlistData?.background}` }}>
                     </div>
                     {
                         isCreate

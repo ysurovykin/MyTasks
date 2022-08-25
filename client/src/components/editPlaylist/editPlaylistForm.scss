@@ -1,4 +1,4 @@
-.create-playlist-form-wrapper {
+.edit-playlist-form-wrapper {
     position: fixed;
     top: 0;
     left: 0;
@@ -15,7 +15,7 @@
         align-items: flex-start;
     }
 
-    .create-playlist-form {
+    .edit-playlist-form {
         width: 450px;
         height: 600px;
         border-radius: 30px;
@@ -233,7 +233,7 @@
             transition: all 0.3s ease-in-out;
 
             &.light {
-                .create-btn {
+                .edit-btn {
                     color: black
                 }
 
@@ -243,7 +243,7 @@
             }
 
             &.dark {
-                .create-btn {
+                .edit-btn {
                     color: white
                 }
 
@@ -252,7 +252,7 @@
                 }
             }
 
-            .create-btn {
+            .edit-btn {
                 outline: none;
                 border: none;
                 border-radius: 30px;

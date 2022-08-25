@@ -4,8 +4,8 @@ class PlaylistController {
 
     async create(req, res, next) {
         try {
-            const { name, image, iduser } = req.body;
-            const response = await playlistService.create(name, image, iduser)
+            const { name, background, image, iduser } = req.body;
+            const response = await playlistService.create(name, background, image, iduser)
             res.json(response);
         } catch (error) {
             next(error);
@@ -14,8 +14,8 @@ class PlaylistController {
 
     async update(req, res, next) {
         try {
-            const { name, image, id } = req.body;
-            const playlistData = await playlistService.update(name, image, id);
+            const { name, background, image, id } = req.body;
+            const playlistData = await playlistService.update(name, background, image, id);
             return res.json(playlistData);
         } catch (error) {
             next(error);

@@ -1,20 +1,20 @@
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks/redux";
 import { playlistAPI } from "../../redux/services/PlaylistService";
-import './createPlaylistForm.scss'
+import './editPlaylistForm.scss'
 
-function CreatePlaylistForm({ setIsCreateValue }) {
-    const [playlistInput, setPlaylistInput] = useState('');
+function EditPlaylistForm({ setIsEditValue, editingPlaylist }) {
+    const { data: playlistData } = playlistAPI.useFetchPlaylistQuery(editingPlaylist)
     const [gradient, setGradient] = useState('');
-    const [createPlaylist, { }] = playlistAPI.useCreatePlaylistMutation();
+    const [editPlaylist, { }] = playlistAPI.useEditPlaylistMutation();
+    const [playlistInput, setPlaylistInput] = useState('');
+    const handlePlaylistInput = (e) => {
+        setPlaylistInput(e.target.value)
+    }
     const { userData } = useAppSelector(state => state.userSlice)
 
-    const setPlaylistValue = (e) => {
-        setPlaylistInput(e.target.value);
-    }
-    const cancelCreate = () => {
-        setIsCreateValue();
-        setPlaylistInput('')
+    const cancelEdit = () => {
+        setIsEditValue();
     }
 
     const hexString = "0123456789abcdef";
@@ -31,23 +31,23 @@ function CreatePlaylistForm({ setIsCreateValue }) {
         const angle = Math.floor(Math.random() * 360);
         setGradient(`linear-gradient(${angle}deg, ${colorOne}, ${colorTwo})`);
     }
-    const handleCreatePlaylist = (e) => {
+    const handleEditPlaylist = (e) => {
         e.preventDefault();
         try {
-            createPlaylist({ name: playlistInput, image: null, background: gradient, iduser: userData.id })
-            setIsCreateValue();
+            editPlaylist({ name: playlistInput, image: null, background: gradient, id: playlistData?.id })
+            setIsEditValue()
         } catch (e) {
             console.log(e.message)
         }
     }
-
     useEffect(() => {
-        generateGradient();
-    }, [])
+        setGradient(playlistData?.background)
+        setPlaylistInput(playlistData?.name)
+    }, [playlistData])
 
     return (
-        <div className={`create-playlist-form-wrapper ${userData.theme}`}>
-            <div className={`create-playlist-form ${userData.theme}`}>
+        <div className={`edit-playlist-form-wrapper ${userData.theme}`}>
+            <div className={`edit-playlist-form ${userData.theme}`}>
                 <div className='album-form-input'>
                     <div className="album-wrapper" style={{ background: `${gradient}` }}></div>
                     <button className='generate-btn' onClick={generateGradient}>Generate background gradient</button>
@@ -55,19 +55,19 @@ function CreatePlaylistForm({ setIsCreateValue }) {
                     <input type="file" name="image" id="upload-image" />
                 </div>
                 <div className='playlist-form-input'>
-                    <h2>Name this playlist</h2>
+                    <h2>Name of the playlist</h2>
                     <div className="playlist-input-wrapper">
                         <input className="playlist-input"
                             value={playlistInput}
-                            onChange={setPlaylistValue}
+                            onChange={handlePlaylistInput}
                             placeholder={'Tasks 007'}
                             type={'text'}
                         />
                     </div>
                 </div>
                 <div className={`playlist-form-buttons ${userData.theme}`}>
-                    <button className='create-btn' onClick={handleCreatePlaylist}>Create</button>
-                    <button className='cancel-btn' onClick={cancelCreate}>Cancel</button>
+                    <button className='edit-btn' onClick={handleEditPlaylist}>Update</button>
+                    <button className='cancel-btn' onClick={cancelEdit}>Cancel</button>
                 </div>
             </div>
         </div >
@@ -75,4 +75,4 @@ function CreatePlaylistForm({ setIsCreateValue }) {
 }
 
 
-export default CreatePlaylistForm
+export default EditPlaylistForm
