@@ -40,6 +40,13 @@ export const taskAPI = createApi({
             }),
             invalidatesTags: ['DeleteTask']
         }),
+        deleteTasksFromPlaylist: builder.mutation<ITask[], {idplaylist: number}>({
+            query: (playlist: {idplaylist: number}) => ({
+                url: `deleteFromPlaylist/${playlist.idplaylist}`,
+                method: 'DELETE'
+            }),
+            invalidatesTags: ['DeleteTask']
+        }),
         updateTask: builder.mutation<ITask, {description: string, task_date: Date, importance: boolean, id: number}>({
             query: (task: {description: string, task_date: Date, importance: boolean, id: number}) => ({
                 url: `update`,

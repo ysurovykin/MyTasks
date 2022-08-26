@@ -38,6 +38,12 @@ class TaskService {
 
         return taskDto
     }
+    async deleteFromPlaylist(idplaylist) {
+        const today = new Date();
+        const deletedPlaylistPlannedTasks = await db.query('DELETE FROM tasks WHERE idplaylist = $1 AND task_date > $2 RETURNING *', [idplaylist, today]);
+        return deletedPlaylistPlannedTasks.rows;
+    }
+
     async getDatesByPlaylist(idplaylist) {
         const newDate = new Date().toISOString();
         const task_dates = await db.query('SELECT DISTINCT SUBSTRING(to_char(task_date, \'DD.MM.YYYY\')::text, 1, 10) as response FROM tasks WHERE idplaylist = $1 AND task_date >= $2 ORDER BY response ASC', [idplaylist, newDate.slice(0, 10)]);

@@ -31,6 +31,16 @@ class TaskController {
             next(error);
         }
     }
+    async deleteFromPlaylist(req, res, next) {
+        try {
+            const { idplaylist } = req.params;
+            console.log(idplaylist);
+            const taskData = await taskService.deleteFromPlaylist(idplaylist);
+            return res.json(taskData);
+        } catch (error) {
+            next(error);
+        }
+    }
 
     async getDatesByPlaylist(req, res, next) {
         try {
@@ -106,6 +116,7 @@ class TaskController {
             next(error);
         }
     }
+    
 }
 
 module.exports = new TaskController();
