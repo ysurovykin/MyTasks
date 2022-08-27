@@ -50,6 +50,28 @@ class PlaylistController {
             next(error);
         }
     }
+    
+    async uploadImage(req, res, next) {
+        try {
+            const { filename } = req.file;
+            const { idplaylist } = req.params;
+            const playlist = await playlistService.uploadImage(filename, idplaylist);
+            return res.json(playlist);
+        } catch (error) {
+            next(error);
+        }
+    }
+    //ToDo fix it
+    async getPlaylistImage(req, res, next) {
+        try {
+            const { id } = req.params;
+            const image = await playlistService.getPlaylistImage(id);
+            return res.json(image);
+        } catch (error) {
+            next(error);
+        }
+    }
+    
 }
 
 module.exports = new PlaylistController();

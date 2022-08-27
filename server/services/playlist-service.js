@@ -1,6 +1,8 @@
 const PlaylistDto = require('../dtos/playlist-dto');
 const ApiError = require('../errors/api-errors');
 const db = require('../db')
+const fs = require('fs')
+const path = require('path')
 
 class PlaylistService {
     async create(name, background, image, iduser) {
@@ -45,7 +47,39 @@ class PlaylistService {
 
         const playlistDto = new PlaylistDto(playlist.rows[0]);
 
+        return { ...playlistDto, image: {} }
+    }
+    async uploadImage(fileName, idplaylist) {
+        const playlist = await db.query('SELECT * FROM playlists WHERE id = $1', [idplaylist]);
+        if (!playlist.rowCount) {
+            throw ApiError.BadRequestError('Playlist is not exist');
+        }
+        if (!!playlist.rows[0].image) {
+            fs.unlink(`./images/${playlist.rows[0].image}`, (err => {
+                if (err) console.log(err);
+            }));
+        }
+        console.log(fileName)
+        const updatedPlaylist = await db.query('UPDATE playlists SET image = $1 WHERE id = $2 RETURNING *', [fileName, idplaylist]);
+        console.log(updatedPlaylist.rows[0])
+        const playlistDto = new PlaylistDto(updatedPlaylist.rows[0]);
+
         return playlistDto
+    }
+    //ToDo fix it
+    async getPlaylistImage(id) {
+        const playlist = await db.query('SELECT * FROM playlists WHERE id = $1', [id]);
+        if (!playlist.rowCount) {
+            throw ApiError.BadRequestError('Playlist is not exist');
+        }
+        if (!!playlist.rows[0].image) {
+            try {
+                const data = fs.readFileSync(`./images/${playlist.rows[0].image}`);
+                return data
+            } catch (err) {
+                console.error(err);
+            }
+        }
     }
 }
 

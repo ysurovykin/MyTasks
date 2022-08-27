@@ -233,6 +233,8 @@
                 width: 300px;
                 border: 2px solid black;
                 cursor: pointer;
+                background-size: cover;
+                background-position: center;
 
                 @media (max-width: 1250px) {
                     height: 250px;

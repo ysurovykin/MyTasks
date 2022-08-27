@@ -2,7 +2,6 @@
 import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../../redux/hooks/redux";
 
-
 function Playlist({ title, image, id, background, setIsEditValue, setIsDeleteValue }) {
 
     const navigate = useNavigate();
@@ -12,7 +11,7 @@ function Playlist({ title, image, id, background, setIsEditValue, setIsDeleteVal
         navigate('../' + id, { replace: true })
     }
 
-
+    console.log(image)
     return (
         <div className={`playlist-wrapper ${userData.theme}`}>
             <div className="playlist-header">
@@ -22,7 +21,9 @@ function Playlist({ title, image, id, background, setIsEditValue, setIsDeleteVal
                     <img onClick={() => setIsDeleteValue(id)} className="playlist-btn" src={userData.theme === 'light' ? './images/trash-bin.png' : './images/trash-bin-light.png'} alt='trash' />
                 </div>
             </div>
-            <div className="playlist" style={{ background: `${image ? image : background}` }} onClick={handleNavigate}></div>
+            <div className="playlist" style={!!image 
+                ? {backgroundImage: `url(./images/edit32x32.png)`} : {background: background}} 
+                onClick={handleNavigate}></div>
         </div>
     )
 }

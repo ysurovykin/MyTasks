@@ -19,16 +19,16 @@ export const playlistAPI = createApi({
             }),
             providesTags: ['CreatePlaylist', 'UpdatePlaylist', 'DeletePlaylist']
         }),
-        createPlaylist: builder.mutation<IPlaylist, {name: string, background: string, image: string, iduser: number}>({
-            query: (playlist: {name: string, background: string, image: string, iduser: number}) => ({
+        createPlaylist: builder.mutation<IPlaylist, {data: FormData}>({
+            query: (data: {data: FormData}) => ({
                 url: 'create',
                 method: 'POST',
-                body: playlist
+                body: data
             }),
             invalidatesTags: ['CreatePlaylist']
         }),
-        editPlaylist: builder.mutation<IPlaylist, {name: string, background: string, image: string, id: number}>({
-            query: (playlist: {name: string, background: string, image: string, id: number}) => ({
+        editPlaylist: builder.mutation<IPlaylist, {name: string, background: string, id: number}>({
+            query: (playlist: {name: string, background: string, id: number}) => ({
                 url: 'update',
                 method: 'PUT',
                 body: playlist
@@ -41,6 +41,15 @@ export const playlistAPI = createApi({
                 method: 'DELETE'
             }),
             invalidatesTags: ['DeletePlaylist']
+        }),
+        uploadImage: builder.mutation<IPlaylist, {image: FormData, idplaylist: number}>({
+            query: (data:  {image: FormData, idplaylist: number}) => ({
+                url: `uploadImage/${data.idplaylist}`,
+                method: 'POST',
+                headers: {'Content-Type': 'multipart/form-data; boundary=XXX'},
+                body: data.image,
+            }),
+            invalidatesTags: ['UpdatePlaylist']
         }),
     }),
 })

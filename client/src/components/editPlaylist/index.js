@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks/redux";
 import { playlistAPI } from "../../redux/services/PlaylistService";
@@ -31,10 +32,20 @@ function EditPlaylistForm({ setIsEditValue, editingPlaylist }) {
         const angle = Math.floor(Math.random() * 360);
         setGradient(`linear-gradient(${angle}deg, ${colorOne}, ${colorTwo})`);
     }
-    const handleEditPlaylist = (e) => {
+
+    const [uploadImage, { }] = playlistAPI.useUploadImageMutation();
+    const [imageData, setImageData] = useState();
+
+    const onChangeImage = (e) => {
+        setImageData(e.target.files[0]);
+    }
+    const handleEditPlaylist = async (e) => {
         e.preventDefault();
         try {
-            editPlaylist({ name: playlistInput, image: null, background: gradient, id: playlistData?.id })
+            const data = new FormData()
+            data.append('image', imageData)
+            editPlaylist({ name: playlistInput, background: gradient, id: playlistData?.id })
+            await axios.put(`http://localhost:5000/api/playlist/uploadImage/${playlistData?.id}`, data)
             setIsEditValue()
         } catch (e) {
             console.log(e.message)
@@ -52,7 +63,7 @@ function EditPlaylistForm({ setIsEditValue, editingPlaylist }) {
                     <div className="album-wrapper" style={{ background: `${gradient}` }}></div>
                     <button className='generate-btn' onClick={generateGradient}>Generate background gradient</button>
                     <label id="upload-lable" htmlFor="upload-image">Upload Image</label>
-                    <input type="file" name="image" id="upload-image" />
+                    <input onChange={onChangeImage} type="file" name="image" id="upload-image" />
                 </div>
                 <div className='playlist-form-input'>
                     <h2>Name of the playlist</h2>
