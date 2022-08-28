@@ -1,6 +1,6 @@
 import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import MyInput from '../components/input';
 import '../components/regPage/regPage.scss'
 import { useAppDispatch } from '../redux/hooks/redux';
 import { registration } from '../redux/reducers/UserActionCreator';
@@ -10,16 +10,22 @@ export function RegistrationPage() {
     const [emailInput, setEmailInput] = useState('');
     const [passwordInput, setPasswordInput] = useState('');
     const [nameInput, setNameInput] = useState('');
+    const [isCorrectRegistration, setIsCorrectRegistration] = useState(true);
+
     const setNameValue = (e: any) => {
         setNameInput(e.target.value);
     }
     const setEmailValue = (e: any) => {
+        setIsCorrectRegistration(true)
         setEmailInput(e.target.value);
     }
     const setPasswordValue = (e: any) => {
         setPasswordInput(e.target.value);
     }
     const navigateToLogin = () => {
+        setEmailInput('');
+        setPasswordInput('');
+        setNameInput('');
         navigate("../login", { replace: true });
     }
     const dispatch = useAppDispatch();
@@ -27,13 +33,19 @@ export function RegistrationPage() {
     const handleRegistration = async (e: any) => {
         e.preventDefault()
         try {
-            await dispatch(registration({ email: emailInput, password: passwordInput, name: nameInput }))
-            navigate("../", {replace: true})
+            const response = await dispatch(registration({ email: emailInput, password: passwordInput, name: nameInput }))
+            if (response.meta.requestStatus !== 'rejected') {
+                setIsCorrectRegistration(true);
+                navigate("../", { replace: true });
+            }
+            setIsCorrectRegistration(false);
         }
-        catch(error){
-
+        catch (error: any) {
+            console.log(error.message)
         }
     }
+
+    const { register, formState: { errors, isValid } } = useForm({ mode: "onBlur" });
 
     return (
         <div className='reg-page'>
@@ -52,12 +64,59 @@ export function RegistrationPage() {
             <div className='reg-page__content'>
                 <h1 id='reg-page__h1'>Let us make you</h1>
                 <h2 id='reg-page__h2'>part of our community</h2>
-                <h3 id='reg-page__h3' onClick={navigateToLogin}><span>Already have an account?</span></h3>
+                <h3 id='reg-page__h3'><span onClick={navigateToLogin}>Already have an account?</span></h3>
                 <form>
-                    <MyInput id={'reg-page__name-input'} title={'Tell us your name'} value={nameInput} setValue={setNameValue} type={'text'} placeHolder={'James Bond'} />
-                    <MyInput id={'reg-page__email-input'} title={'Enter your email'} value={emailInput} setValue={setEmailValue} type={'text'} placeHolder={'james_bond_007@gmail.com'} />
-                    <MyInput id={'reg-page__password-input'} title={'Create a secret password'} value={passwordInput} setValue={setPasswordValue} type={'password'} placeHolder={'******'} />
-                    <button type={'submit'} className='reg-page__button' id='reg-btn' onClick={handleRegistration}>SIGN UP</button>
+                    <div id={'reg-page__name-input'} className={errors.registrationName ? 'input-and-title with-errors' : 'input-and-title'}>
+                        <h1>Tell us your name</h1>
+                        <div className="input-wrapper">
+                            <input className="input"
+                                value={nameInput}
+                                placeholder={'James Bond'}
+                                type={'text'}
+                                {...register('registrationName', { required: 'Enter name' })}
+                                onChange={setNameValue}
+                            />
+                        </div>
+                        {errors.registrationName ? <p>Enter name</p> : null}
+                    </div>
+                    <div id={'reg-page__email-input'} className={errors.registrationEmail ? 'input-and-title with-errors' : 'input-and-title'}>
+                        <h1>Enter your email</h1>
+                        <div className="input-wrapper">
+                            <input className="input"
+                                value={emailInput}
+                                placeholder={'james_bond_007@gmail.com'}
+                                type={'text'}
+                                {...register('registrationEmail', { required: 'Enter ', pattern: { value: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, message: '' } })}
+                                onChange={setEmailValue}
+                            />
+                        </div>
+                        {errors.registrationEmail
+                            ? errors.registrationEmail?.type === 'required'
+                                ? <p>Enter email</p>
+                                : <p>Incorrect email</p>
+                            : !isCorrectRegistration
+                                ? <p>This email exists</p>
+                                : null}
+                    </div>
+                    <div id={'reg-page__password-input'} className={errors.registrationPassword ? 'input-and-title with-errors' : 'input-and-title'}>
+                        <h1>Create a secret password</h1>
+                        <div className="input-wrapper">
+                            <input className="input"
+                                value={passwordInput}
+                                placeholder={'******'}
+                                type={'password'}
+                                {...register('registrationPassword', { minLength: 6 })}
+                                onChange={setPasswordValue}
+                            />
+                        </div>
+                        {errors.registrationPassword ? <p>Too short password</p> : null}
+                    </div>
+                    <button
+                        type={'submit'}
+                        disabled={!isValid}
+                        className={isCorrectRegistration ? 'reg-page__button' : 'reg-page__button with-errors'}
+                        id='reg-btn'
+                        onClick={handleRegistration}>SIGN UP</button>
                 </form>
             </div>
             <div className='reg-page__wave_right'>

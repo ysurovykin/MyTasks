@@ -21,6 +21,11 @@ class PlaylistService {
         if (!playlist.rowCount) {
             throw ApiError.BadRequestError('Playlist is not exist');
         }
+        const existedPlaylist = await db.query('SELECT * FROM playlists WHERE name = $1', [name]);
+
+        if (existedPlaylist.rowCount && existedPlaylist.rows[0].name != playlist.rows[0].name) {
+            throw ApiError.BadRequestError('Playlist with this name already exist');
+        }
         const updatedPlaylist = await db.query('UPDATE playlists SET name = $1, background = $2 WHERE id = $3 RETURNING *', [name, background, id]);
         const playlistDto = new PlaylistDto(updatedPlaylist.rows[0]);
 
@@ -64,6 +69,25 @@ class PlaylistService {
         const updatedPlaylist = await db.query('UPDATE playlists SET image = $1 WHERE id = $2 RETURNING *', [fileName, idplaylist]);
         const playlistDto = new PlaylistDto(updatedPlaylist.rows[0]);
 
+        return playlistDto
+    }
+
+    async deleteImage(idplaylist) {
+
+        const playlist = await db.query('SELECT * FROM playlists WHERE id = $1', [idplaylist]);
+        if (!playlist.rowCount) {
+            throw ApiError.BadRequestError('Playlist is not exist');
+        }
+        if (!!playlist.rows[0].image) {
+            fs.unlink(`../client/public/albumImages/${playlist.rows[0].image}`, (err => {
+                if (err) console.log(err);
+            }));
+            const updatedPlaylist = await db.query('UPDATE playlists SET image = $1 WHERE id = $2 RETURNING *', [null, idplaylist]);
+            const playlistDto = new PlaylistDto(updatedPlaylist.rows[0]);
+
+            return playlistDto
+        }
+        const playlistDto = new PlaylistDto(playlist.rows[0]);
         return playlistDto
     }
 

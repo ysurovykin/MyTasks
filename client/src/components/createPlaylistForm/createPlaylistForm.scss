@@ -176,6 +176,7 @@
             justify-self: center;
             display: flex;
             flex-direction: column;
+            position: relative;
 
             h2 {
                 font-size: 20px;
@@ -187,6 +188,21 @@
                 @media (max-width: 420px) {
                     font-size: 18px;
                 }
+            }
+
+            p {
+                color: red;
+                position: absolute;
+                margin: 0px;
+                bottom: -23px;
+                left: 32%;
+            }
+            h4 {
+                color: red;
+                position: absolute;
+                margin: 0px;
+                bottom: -23px;
+                left: 10%;
             }
 
             .playlist-input-wrapper {
@@ -216,6 +232,10 @@
                     border: none;
                     width: 100%;
                     outline: none;
+
+                    &.with-errors {
+                        border-bottom: 1px solid red;
+                    }
 
                     @media (max-width: 420px) {
                         font-size: 18px;
@@ -260,6 +280,11 @@
                 font-size: 25px;
                 cursor: pointer;
                 background-color: rgba(124, 227, 147, 0.75);
+
+                &:disabled {
+                    cursor: default;
+                    background-color: rgba(124, 227, 147, 0.25);
+                }
             }
 
             .cancel-btn {

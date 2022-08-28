@@ -48,6 +48,7 @@
                         }
                     }
 
+
                     .input[type=date]::-webkit-calendar-picker-indicator {
                         background: url('../../../public/images/calendar.png');
                         background-size: contain;
@@ -111,6 +112,7 @@
         }
 
         .form-input {
+            position: relative;
 
             h2 {
                 font-size: 20px;
@@ -122,6 +124,13 @@
                 @media (max-width: 420px) {
                     font-size: 18px;
                 }
+            }
+
+            p {
+                color: red;
+                position: absolute;
+                margin: 0px;
+                right: 4%
             }
 
             .input-wrapper {
@@ -150,6 +159,11 @@
                     border: none;
                     width: 100%;
                     outline: none;
+
+                    &.with-errors {
+                        color: red;
+                        border-bottom: 1px solid red;
+                    }
 
                     @media (max-width: 420px) {
                         font-size: 18px;
@@ -225,6 +239,11 @@
                 font-size: 25px;
                 cursor: pointer;
                 background-color: rgba(124, 227, 147, 0.75);
+
+                &:disabled {
+                    cursor: default;
+                    background-color: rgba(124, 227, 147, 0.25);
+                }
             }
 
             .cancel-btn {

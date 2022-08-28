@@ -5,19 +5,19 @@ import { IPlaylist } from '../models/IPlaylist'
 export const playlistAPI = createApi({
     reducerPath: 'playlistAPI',
     baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:5000/api/playlist/' }),
-    tagTypes: ['CreatePlaylist', 'UpdatePlaylist', 'DeletePlaylist'],
+    tagTypes: ['CreatePlaylist', 'UpdatePlaylist', 'DeletePlaylist', 'DeletePlaylistImage'],
     endpoints: (builder) => ({
         fetchUserPlaylists: builder.query<IPlaylist[], number>({
             query: (iduser: number) => ({
                 url: 'getAll/' + iduser
             }),
-            providesTags: ['CreatePlaylist', 'UpdatePlaylist', 'DeletePlaylist']
+            providesTags: ['CreatePlaylist', 'UpdatePlaylist', 'DeletePlaylist', 'DeletePlaylistImage']
         }),
         fetchPlaylist: builder.query<IPlaylist, number>({
             query: (id: number) => ({
                 url: 'get/' + id
             }),
-            providesTags: ['CreatePlaylist', 'UpdatePlaylist', 'DeletePlaylist']
+            providesTags: ['CreatePlaylist', 'UpdatePlaylist', 'DeletePlaylist', 'DeletePlaylistImage']
         }),
         createPlaylist: builder.mutation<IPlaylist, {data: FormData}>({
             query: (data: {data: FormData}) => ({
@@ -42,14 +42,12 @@ export const playlistAPI = createApi({
             }),
             invalidatesTags: ['DeletePlaylist']
         }),
-        uploadImage: builder.mutation<IPlaylist, {image: FormData, idplaylist: number}>({
-            query: (data:  {image: FormData, idplaylist: number}) => ({
-                url: `uploadImage/${data.idplaylist}`,
-                method: 'POST',
-                headers: {'Content-Type': 'multipart/form-data; boundary=XXX'},
-                body: data.image,
+        deletePlaylistImage: builder.mutation<IPlaylist, {idplaylist: number}>({
+            query: (playlist: {idplaylist: number}) => ({
+                url: `deleteImage/${playlist.idplaylist}`,
+                method: 'DELETE',
             }),
-            invalidatesTags: ['UpdatePlaylist']
+            invalidatesTags: ['DeletePlaylistImage']
         }),
     }),
 })

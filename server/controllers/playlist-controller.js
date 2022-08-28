@@ -61,6 +61,16 @@ class PlaylistController {
             next(error);
         }
     }
+    async deleteImage(req, res, next) {
+        try {
+            const { idplaylist } = req.params;
+            const playlist = await playlistService.deleteImage(idplaylist);
+            return res.json(playlist);
+        } catch (error) {
+            next(error);
+        }
+    }
+    
 }
 
 module.exports = new PlaylistController();

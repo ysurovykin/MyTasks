@@ -1,6 +1,6 @@
 import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import MyInput from '../components/input';
 import '../components/logPage/logPage.scss'
 import { useAppDispatch, useAppSelector } from '../redux/hooks/redux';
 import { login } from '../redux/reducers/UserActionCreator';
@@ -10,6 +10,7 @@ export function LoginPage() {
 
     const [emailInput, setEmailInput] = useState('');
     const [passwordInput, setPasswordInput] = useState('');
+    const [isCorrectLogin, setIsCorrectLogin] = useState(true);
 
     const setEmailValue = (e: any) => {
         setEmailInput(e.target.value);
@@ -18,6 +19,8 @@ export function LoginPage() {
         setPasswordInput(e.target.value);
     }
     const navigateToRegistration = () => {
+        setEmailInput('');
+        setPasswordInput('');
         navigate("../registration", { replace: true });
     }
 
@@ -26,13 +29,20 @@ export function LoginPage() {
     const handleLogin = async (e: any) => {
         e.preventDefault()
         try {
-            await dispatch(login({ email: emailInput, password: passwordInput }))
-            navigate("../", {replace: true})
+            const response = await dispatch(login({ email: emailInput, password: passwordInput }))
+            if (response.meta.requestStatus !== 'rejected') {
+                setIsCorrectLogin(true);
+                navigate("../", { replace: true });
+            }
+            setIsCorrectLogin(false);
+            setPasswordInput('')
         }
-        catch(error){
-            
+        catch (error: any) {
+            console.log(error.message)
         }
     }
+
+    const { register, formState: { errors, isValid } } = useForm({ mode: "onBlur" });
 
     return (
         <div className='log-page'>
@@ -51,11 +61,41 @@ export function LoginPage() {
                 <h1 className='log-page__h1'>Happy to see you</h1>
                 <h2 className='log-page__h2_first'>It`s time to start</h2>
                 <h2 className='log-page__h2_second'>making big plans</h2>
-                <h3 className='log-page__h3' onClick={navigateToRegistration}><span>Still don`t have an account?</span></h3>
+                <h3 className='log-page__h3'><span onClick={navigateToRegistration}>Still don`t have an account?</span></h3>
                 <form>
-                    <MyInput id={'log-page__email-input'} title={'Enter your email'} value={emailInput} setValue={setEmailValue} type={'text'} placeHolder={'james_bond_007@gmail.com'} />
-                    <MyInput id={'log-page__password-input'} title={'Enter your password'} value={passwordInput} setValue={setPasswordValue} type={'password'} placeHolder={'******'} />
-                    <button type={'submit'} className='log-page__button' id='log-btn' onClick={handleLogin}>SIGN IN</button>
+                    <div id={'log-page__email-input'} className={errors.loginEmail ? 'input-and-title with-errors' : 'input-and-title'}>
+                        <h1>Enter your email</h1>
+                        <div className="input-wrapper">
+                            <input className="input"
+                                value={emailInput}
+                                placeholder={'james_bond_007@gmail.com'}
+                                type={'text'}
+                                {...register('loginEmail', { required: 'Enter email' })}
+                                onChange={setEmailValue}
+                            />
+                        </div>
+                        {errors.loginEmail ? <p>Enter email</p> : null}
+                    </div>
+                    <div id={'log-page__password-input'} className={errors.loginPassword ? 'input-and-title with-errors' : 'input-and-title'}>
+                        <h1>Enter your password</h1>
+                        <div className="input-wrapper">
+                            <input className="input"
+                                value={passwordInput}
+                                placeholder={'******'}
+                                type={'password'}
+                                {...register('loginPassword', { required: 'Enter password' })}
+                                onChange={setPasswordValue}
+                            />
+                        </div>
+                        {errors.loginPassword ? <p>Enter password</p> : null}
+                    </div>
+
+                    <button
+                        type={'submit'}
+                        disabled={!isValid}
+                        className={isCorrectLogin ? 'log-page__button' : 'log-page__button with-errors'}
+                        id='log-btn'
+                        onClick={handleLogin}>SIGN IN</button>
                 </form>
             </div>
             <div className='log-page__wave_right'>

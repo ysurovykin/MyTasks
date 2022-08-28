@@ -17,7 +17,7 @@ export const userSlice = createSlice({
     reducers:{},
     extraReducers:{
         [login.pending.type]: (state) => {
-            state.isLoading = true;
+            //
         },
         [login.fulfilled.type]: (state, action: PayloadAction<IUserData>) => {
             state.isLoading = false;
@@ -30,7 +30,7 @@ export const userSlice = createSlice({
         },
 
         [registration.pending.type]: (state) => {
-            state.isLoading = true;
+            //
         },
         [registration.fulfilled.type]: (state, action: PayloadAction<IUserData>) => {
             state.isLoading = false;

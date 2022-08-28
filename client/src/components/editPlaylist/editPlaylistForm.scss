@@ -40,6 +40,11 @@
                     color: black
                 }
 
+                .delete-btn {
+                    background-color: #e1e1e1;
+                    color: black
+                }
+
                 #upload-lable {
                     background-color: #e1e1e1;
                     color: black
@@ -80,6 +85,11 @@
                 }
 
                 .generate-btn {
+                    background-color: #535353;
+                    color: white;
+                }
+
+                .delete-btn {
                     background-color: #535353;
                     color: white;
                 }
@@ -136,7 +146,7 @@
             width: 100%;
             height: 100%;
             display: grid;
-            grid-template-rows: 1fr 50px 50px;
+            grid-template-rows: 1fr 50px 40px 50px;
             row-gap: 10px;
 
             .album-wrapper {
@@ -155,12 +165,21 @@
                 cursor: pointer;
             }
 
+            .delete-btn {
+                outline: none;
+                border: none;
+                border-radius: 30px;
+                padding: 10px 20px;
+                font-size: 20px;
+                cursor: pointer;
+            }
+
             #upload-lable {
                 outline: none;
                 border: none;
                 border-radius: 30px;
                 padding: 10px 20px;
-                font-size: 25px;
+                font-size: 20px;
                 align-self: center;
                 text-align: center;
                 cursor: pointer;
@@ -176,6 +195,7 @@
             justify-self: center;
             display: flex;
             flex-direction: column;
+            position: relative;
 
             h2 {
                 font-size: 20px;
@@ -187,6 +207,22 @@
                 @media (max-width: 420px) {
                     font-size: 18px;
                 }
+            }
+
+            p {
+                color: red;
+                position: absolute;
+                margin: 0px;
+                bottom: -23px;
+                left: 32%;
+            }
+
+            h4 {
+                color: red;
+                position: absolute;
+                margin: 0px;
+                bottom: -23px;
+                left: 10%;
             }
 
             .playlist-input-wrapper {
@@ -216,6 +252,10 @@
                     border: none;
                     width: 100%;
                     outline: none;
+
+                    &.with-errors {
+                        border-bottom: 1px solid red;
+                    }
 
                     @media (max-width: 420px) {
                         font-size: 18px;
@@ -260,6 +300,11 @@
                 font-size: 25px;
                 cursor: pointer;
                 background-color: rgba(124, 227, 147, 0.75);
+
+                &:disabled {
+                    cursor: default;
+                    background-color: rgba(124, 227, 147, 0.25);
+                }
             }
 
             .cancel-btn {
