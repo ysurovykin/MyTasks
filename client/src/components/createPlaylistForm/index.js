@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks/redux";
 import { playlistAPI } from "../../redux/services/PlaylistService";
@@ -31,10 +32,20 @@ function CreatePlaylistForm({ setIsCreateValue }) {
         const angle = Math.floor(Math.random() * 360);
         setGradient(`linear-gradient(${angle}deg, ${colorOne}, ${colorTwo})`);
     }
-    const handleCreatePlaylist = (e) => {
+    const [uploadImage, { }] = playlistAPI.useUploadImageMutation();
+    const [imageData, setImageData] = useState();
+    const onChangeImage = (e) => {
+        setImageData(e.target.files[0]);
+    }
+    const handleCreatePlaylist = async (e) => {
         e.preventDefault();
         try {
-            createPlaylist({ name: playlistInput, image: null, background: gradient, iduser: userData.id })
+            const newPlaylist = await createPlaylist({ name: playlistInput, image: null, background: gradient, iduser: userData.id })
+            if (!!imageData) {
+                const data = new FormData()
+                data.append('image', imageData)
+                await axios.put(`http://localhost:5000/api/playlist/uploadImage/${newPlaylist.data.id}`, data)
+            }
             setIsCreateValue();
         } catch (e) {
             console.log(e.message)
@@ -52,7 +63,7 @@ function CreatePlaylistForm({ setIsCreateValue }) {
                     <div className="album-wrapper" style={{ background: `${gradient}` }}></div>
                     <button className='generate-btn' onClick={generateGradient}>Generate background gradient</button>
                     <label id="upload-lable" htmlFor="upload-image">Upload Image</label>
-                    <input type="file" name="image" id="upload-image" />
+                    <input onChange={onChangeImage} type="file" name="image" id="upload-image" />
                 </div>
                 <div className='playlist-form-input'>
                     <h2>Name this playlist</h2>

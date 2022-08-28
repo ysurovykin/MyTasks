@@ -4,8 +4,8 @@ class PlaylistController {
 
     async create(req, res, next) {
         try {
-            const { name, background, image, iduser } = req.body;
-            const response = await playlistService.create(name, background, image, iduser)
+            const { name, background, iduser } = req.body;
+            const response = await playlistService.create(name, background, iduser)
             res.json(response);
         } catch (error) {
             next(error);
@@ -14,8 +14,8 @@ class PlaylistController {
 
     async update(req, res, next) {
         try {
-            const { name, background, image, id } = req.body;
-            const playlistData = await playlistService.update(name, background, image, id);
+            const { name, background, id } = req.body;
+            const playlistData = await playlistService.update(name, background, id);
             return res.json(playlistData);
         } catch (error) {
             next(error);
@@ -61,17 +61,6 @@ class PlaylistController {
             next(error);
         }
     }
-    //ToDo fix it
-    async getPlaylistImage(req, res, next) {
-        try {
-            const { id } = req.params;
-            const image = await playlistService.getPlaylistImage(id);
-            return res.json(image);
-        } catch (error) {
-            next(error);
-        }
-    }
-    
 }
 
 module.exports = new PlaylistController();

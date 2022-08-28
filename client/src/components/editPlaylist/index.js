@@ -42,10 +42,12 @@ function EditPlaylistForm({ setIsEditValue, editingPlaylist }) {
     const handleEditPlaylist = async (e) => {
         e.preventDefault();
         try {
-            const data = new FormData()
-            data.append('image', imageData)
             editPlaylist({ name: playlistInput, background: gradient, id: playlistData?.id })
-            await axios.put(`http://localhost:5000/api/playlist/uploadImage/${playlistData?.id}`, data)
+            if (!!imageData) {
+                const data = new FormData()
+                data.append('image', imageData)
+                await axios.put(`http://localhost:5000/api/playlist/uploadImage/${playlistData?.id}`, data)
+            }
             setIsEditValue()
         } catch (e) {
             console.log(e.message)
