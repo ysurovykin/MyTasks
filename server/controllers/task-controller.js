@@ -106,6 +106,15 @@ class TaskController {
             next(error);
         }
     }
+    async getStats(req, res, next) {
+        try {
+            const { iduser, period } = req.params;
+            const task = await taskService.getStats(iduser, period);
+            return res.json(task);
+        } catch (error) {
+            next(error);
+        }
+    }
     async setComplete(req, res, next) {
         try {
             const { id } = req.body;

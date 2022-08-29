@@ -18,5 +18,6 @@ router.get('/getCompleted/:iduser/:period', taskController.getCompleted)
 router.get('/getFailed/:iduser/:period', taskController.getFailed)
 router.get('/getPlaned/:iduser/:period', taskController.getPlaned)
 router.get('/getDaysScheduled/:iduser/:period', taskController.getDaysScheduled)
+router.get('/getStats/:iduser/:period', taskController.getStats)
 
 module.exports = router;

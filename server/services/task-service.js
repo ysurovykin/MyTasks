@@ -162,6 +162,72 @@ class TaskService {
                 return completedTasksA.rowCount
         }
     }
+    async getStats(iduser, period) {
+        const currentDate = new Date();
+        const currentDay = currentDate.getDate();
+        const currentMonth = currentDate.getMonth() + 1;
+        const currentYear = currentDate.getFullYear();
+        const today = currentYear + '.' + currentMonth + '.' + currentDay;
+
+        switch (period) {
+            case 'month':
+                const startMonth = currentYear + '.' + currentMonth + '.01';
+                const endMonth = currentYear + '.' + currentMonth + '.31';
+                const allCompletedM = await db.query('SELECT * FROM tasks WHERE iduser = $1 and task_date >= $2 and task_date <= $3 and iscomplete = true', [iduser, startMonth, endMonth]);
+                const comlete0To6M = await db.query('SELECT * FROM tasks WHERE iduser = $1 and task_date >= $2 and task_date <= $3 and complete_hour between 0 and 5', [iduser, startMonth, endMonth]);
+                const comlete6To9M = await db.query('SELECT * FROM tasks WHERE iduser = $1 and task_date >= $2 and task_date <= $3 and complete_hour between 6 and 8', [iduser, startMonth, endMonth]);
+                const comlete9To12M = await db.query('SELECT * FROM tasks WHERE iduser = $1 and task_date >= $2 and task_date <= $3 and complete_hour between 9 and 11', [iduser, startMonth, endMonth]);
+                const comlete12To15M = await db.query('SELECT * FROM tasks WHERE iduser = $1 and task_date >= $2 and task_date <= $3 and complete_hour between 12 and 14', [iduser, startMonth, endMonth]);
+                const comlete15To18M = await db.query('SELECT * FROM tasks WHERE iduser = $1 and task_date >= $2 and task_date <= $3 and complete_hour between 15 and 17', [iduser, startMonth, endMonth]);
+                const comlete18To21M = await db.query('SELECT * FROM tasks WHERE iduser = $1 and task_date >= $2 and task_date <= $3 and complete_hour between 18 and 20', [iduser, startMonth, endMonth]);
+                const comlete21To0M = await db.query('SELECT * FROM tasks WHERE iduser = $1 and task_date >= $2 and task_date <= $3 and complete_hour between 21 and 23', [iduser, startMonth, endMonth]);
+
+                console.log(allCompletedM.rowCount, comlete0To6M.rowCount, comlete6To9M.rowCount, comlete9To12M.rowCount, comlete12To15M.rowCount, comlete15To18M.rowCount, comlete18To21M.rowCount, comlete21To0M.rowCount)
+
+                return [comlete0To6M.rowCount / allCompletedM.rowCount * 100,
+                comlete6To9M.rowCount / allCompletedM.rowCount * 100,
+                comlete9To12M.rowCount / allCompletedM.rowCount * 100,
+                comlete12To15M.rowCount / allCompletedM.rowCount * 100,
+                comlete15To18M.rowCount / allCompletedM.rowCount * 100,
+                comlete18To21M.rowCount / allCompletedM.rowCount * 100,
+                comlete21To0M.rowCount / allCompletedM.rowCount * 100]
+            case 'year':
+                const startYear = currentYear + '.01.01';
+                const endYear = currentYear + '.12.31';
+                const allCompletedY = await db.query('SELECT * FROM tasks WHERE iduser = $1 and task_date >= $2 and task_date <= $3 and iscomplete = true', [iduser, startYear, endYear]);
+                const comlete0To6Y = await db.query('SELECT * FROM tasks WHERE iduser = $1 and task_date >= $2 and task_date <= $3 and complete_hour between 0 and 5', [iduser, startYear, endYear]);
+                const comlete6To9Y = await db.query('SELECT * FROM tasks WHERE iduser = $1 and task_date >= $2 and task_date <= $3 and complete_hour between 6 and 8', [iduser, startYear, endYear]);
+                const comlete9To12Y = await db.query('SELECT * FROM tasks WHERE iduser = $1 and task_date >= $2 and task_date <= $3 and complete_hour between 9 and 11', [iduser, startYear, endYear]);
+                const comlete12To15Y = await db.query('SELECT * FROM tasks WHERE iduser = $1 and task_date >= $2 and task_date <= $3 and complete_hour between 12 and 14', [iduser, startYear, endYear]);
+                const comlete15To18Y = await db.query('SELECT * FROM tasks WHERE iduser = $1 and task_date >= $2 and task_date <= $3 and complete_hour between 15 and 17', [iduser, startYear, endYear]);
+                const comlete18To21Y = await db.query('SELECT * FROM tasks WHERE iduser = $1 and task_date >= $2 and task_date <= $3 and complete_hour between 18 and 20', [iduser, startYear, endYear]);
+                const comlete21To0Y = await db.query('SELECT * FROM tasks WHERE iduser = $1 and task_date >= $2 and task_date <= $3 and complete_hour between 21 and 23', [iduser, startYear, endYear]);
+                return [comlete0To6Y.rowCount / allCompletedY.rowCount * 100,
+                comlete6To9Y.rowCount / allCompletedY.rowCount * 100,
+                comlete9To12Y.rowCount / allCompletedY.rowCount * 100,
+                comlete12To15Y.rowCount / allCompletedY.rowCount * 100,
+                comlete15To18Y.rowCount / allCompletedY.rowCount * 100,
+                comlete18To21Y.rowCount / allCompletedY.rowCount * 100,
+                comlete21To0Y.rowCount / allCompletedY.rowCount * 100]
+            case 'all':
+                const allCompletedA = await db.query('SELECT * FROM tasks WHERE iduser = $1 and iscomplete = true', [iduser]);
+                const comlete0To6A = await db.query('SELECT * FROM tasks WHERE iduser = $1 and complete_hour between 0 and 5', [iduser]);
+                const comlete6To9A = await db.query('SELECT * FROM tasks WHERE iduser = $1 and complete_hour between 6 and 8', [iduser]);
+                const comlete9To12A = await db.query('SELECT * FROM tasks WHERE iduser = $1 and complete_hour between 9 and 11', [iduser]);
+                const comlete12To15A = await db.query('SELECT * FROM tasks WHERE iduser = $1 and complete_hour between 12 and 14', [iduser]);
+                const comlete15To18A = await db.query('SELECT * FROM tasks WHERE iduser = $1 and complete_hour between 15 and 17', [iduser]);
+                const comlete18To21A = await db.query('SELECT * FROM tasks WHERE iduser = $1 and complete_hour between 18 and 20', [iduser]);
+                const comlete21To0A = await db.query('SELECT * FROM tasks WHERE iduser = $1 and complete_hour between 21 and 23', [iduser]);
+                return [comlete0To6A.rowCount / allCompletedA.rowCount * 100,
+                comlete6To9A.rowCount / allCompletedA.rowCount * 100,
+                comlete9To12A.rowCount / allCompletedA.rowCount * 100,
+                comlete12To15A.rowCount / allCompletedA.rowCount * 100,
+                comlete15To18A.rowCount / allCompletedA.rowCount * 100,
+                comlete18To21A.rowCount / allCompletedA.rowCount * 100,
+                comlete21To0A.rowCount / allCompletedA.rowCount * 100]
+
+        }
+    }
 }
 
 module.exports = new TaskService();

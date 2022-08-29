@@ -87,5 +87,11 @@ export const taskAPI = createApi({
             }),
             providesTags: ['DeleteTask', 'CreateTask', 'UpdateTask']
         }),
+        getStats: builder.query<number, {iduser: number, period: string}>({
+            query: (data: {iduser: number, period: string}) => ({
+                url: `getStats/${data.iduser}/${data.period}`
+            }),
+            providesTags: ['DeleteTask', 'CreateTask', 'UpdateTask']
+        }),
     }),
 })

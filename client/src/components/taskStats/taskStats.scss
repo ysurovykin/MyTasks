@@ -36,8 +36,11 @@
             'checkbox'
             'stats'
             'chart';
-        grid-template-rows: 60px 70px repeat(2, 1fr);
-        grid-template-columns: none;
+        grid-template-rows: 60px 70px 1fr auto 120px;
+        grid-template-columns: minmax(350px, 1fr);
+    }
+    @media (max-width: 450px) {
+        grid-template-rows: 60px 70px 1fr auto 90px;
     }
 
     .head-text {
@@ -319,16 +322,14 @@
 
     .task-stats-wrapper__chart {
         grid-area: chart;
-        background-color: fuchsia;
-
+        display: grid;
+        grid-template-columns: 1f;
+        grid-template-rows: 1fr;
+        
         @media (max-width: 650px) {
             margin: 0px 20px 0px 20px;
-            height: 300px;
+            height: 620px;
         }
     }
 
-    .whitespace {
-        width: 100%;
-        height: 120px;
-    }
 }
