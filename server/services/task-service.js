@@ -181,9 +181,6 @@ class TaskService {
                 const comlete15To18M = await db.query('SELECT * FROM tasks WHERE iduser = $1 and task_date >= $2 and task_date <= $3 and complete_hour between 15 and 17', [iduser, startMonth, endMonth]);
                 const comlete18To21M = await db.query('SELECT * FROM tasks WHERE iduser = $1 and task_date >= $2 and task_date <= $3 and complete_hour between 18 and 20', [iduser, startMonth, endMonth]);
                 const comlete21To0M = await db.query('SELECT * FROM tasks WHERE iduser = $1 and task_date >= $2 and task_date <= $3 and complete_hour between 21 and 23', [iduser, startMonth, endMonth]);
-
-                console.log(allCompletedM.rowCount, comlete0To6M.rowCount, comlete6To9M.rowCount, comlete9To12M.rowCount, comlete12To15M.rowCount, comlete15To18M.rowCount, comlete18To21M.rowCount, comlete21To0M.rowCount)
-
                 return [comlete0To6M.rowCount / allCompletedM.rowCount * 100,
                 comlete6To9M.rowCount / allCompletedM.rowCount * 100,
                 comlete9To12M.rowCount / allCompletedM.rowCount * 100,
