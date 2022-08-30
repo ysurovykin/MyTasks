@@ -13,7 +13,7 @@ class UserService {
         }
         const hashedPassword = await bcrypt.hash(password, 3);
 
-        const newUser = await db.query('INSERT INTO users (email, password, name, theme) values ($1, $2, $3, $4) RETURNING *', [email, hashedPassword, name, true]);
+        const newUser = await db.query('INSERT INTO users (email, password, name, theme) values ($1, $2, $3, $4) RETURNING *', [email, hashedPassword, name, 'light']);
 
         const userDto = new UserDto(newUser.rows[0]);
         const tokens = tokenService.generateTokens({ ...userDto });
